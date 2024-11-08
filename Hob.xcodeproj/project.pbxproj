@@ -200,11 +200,12 @@
 				};
 			};
 			buildConfigurationList = 916F35D52CDB698A00688A2F /* Build configuration list for PBXProject "Hob" */;
-			developmentRegion = en;
+			developmentRegion = fr;
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				en,
 				Base,
+				fr,
 			);
 			mainGroup = 916F35D12CDB698A00688A2F;
 			minimizedProjectReferenceProxies = 1;
