@@ -6,11 +6,16 @@
 //
 
 import SwiftUI
-
+import FirebaseAuth
 struct WelcomeView: View {
     @State private var isAnimating: Bool = false
     @State private var navigateToSignIn: Bool = false
     @State private var navigateToSignUp: Bool = false
+    let auth : Auth
+    
+    init (auth: Auth) {
+        self.auth = auth
+    }
     
     var body: some View {
         ZStack {
@@ -62,7 +67,7 @@ struct WelcomeView: View {
                 }
             }
         }
-        .navigationDestination(isPresented: $navigateToSignIn) { SignInView() }
+        .navigationDestination(isPresented: $navigateToSignIn) { SignInView(auth: auth) }
         .navigationDestination(isPresented: $navigateToSignUp) { SignUpView() }
     }
     
@@ -79,6 +84,6 @@ struct WelcomeView: View {
 
 
 #Preview {
-    WelcomeView()
+    WelcomeView(auth: Auth.auth())
         .preferredColorScheme(.dark)
 }

@@ -7,8 +7,12 @@
 
 import SwiftUI
 
-struct HomeView {
+struct HomeView : View {
     var body: some View {
         Text("Hello, Home!")
     }
+}
+
+#Preview {
+    HomeView()
 }

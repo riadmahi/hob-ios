@@ -10,16 +10,18 @@ import FirebaseAuth
 
 struct ContentView: View {
     @StateObject private var viewModel: ViewModel
+    let auth: Auth
     
     init(auth: Auth) {
+        self.auth = auth
         _viewModel = StateObject(wrappedValue: ViewModel(auth: auth))
     }
     
     var body: some View {
         if viewModel.isAuthenticated {
-            
+            HomeView()
         } else {
-            WelcomeView()
+            WelcomeView(auth: auth)
         }
     }
 }
