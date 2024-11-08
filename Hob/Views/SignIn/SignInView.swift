@@ -25,7 +25,7 @@ struct SignInView: View {
                 displayName: "Heureux de te revoir 👋🏽"
             )
             VStack(spacing: 24) {
-                HobTextField(hint: "Email", text: $viewModel.email)
+                HobTextField(hint: "Email", text: $viewModel.email, uiKeyboardType: .emailAddress)
                 
                 SecureHobTextField(
                     hint: "Mot de passe",

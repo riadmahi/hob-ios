@@ -25,7 +25,7 @@ struct ForgotPasswordView: View {
                 subtitle: "Pas d’inquiétude, renseigne ton adresse mail et on s’occupe de tout."
             )
             
-            HobTextField(hint: "Email", text: $viewModel.email)
+            HobTextField(hint: "Email", text: $viewModel.email, uiKeyboardType: .emailAddress)
             
             if viewModel.isLoading {
                 ProgressView()
