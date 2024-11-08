@@ -5,7 +5,7 @@
 //  Created by Riad on 08/11/2024.
 //
 
-import SwiftUI
+import Foundation
 import FirebaseAuth
 
 extension SignInView {

@@ -62,7 +62,9 @@ struct SignInView: View {
         }
         .padding(.top, 48)
         .padding(.horizontal, 10)
-        
+        .navigationDestination(isPresented: $viewModel.isPasswordForgotten) {
+            ForgotPasswordView(auth: viewModel.auth)
+        }
     }
 }
 

@@ -10,6 +10,7 @@ import SwiftUI
 struct AuthStepHeader: View {
     let screenName: String
     let displayName: String
+    var subtitle: String?
     
     var body: some View {
         VStack(spacing: 8) {
@@ -17,7 +18,14 @@ struct AuthStepHeader: View {
                 .brSonomaFont(.regular, 13)
             Text(displayName)
                 .brSonomaFont(.black, 20)
+            if let subtitleText = subtitle {
+                Text(subtitleText)
+                    .brSonomaFont(.regular, 15)
+                    .foregroundColor(Color("PlaceholderColor"))
+                    .multilineTextAlignment(.center)
+            }
         }
+        .padding(.horizontal, 42)
     }
 }
 
