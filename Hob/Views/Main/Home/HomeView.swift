@@ -6,13 +6,23 @@
 //
 
 import SwiftUI
+import FirebaseAuth
 
 struct HomeView : View {
+    @StateObject private var viewModel: ViewModel
+    
+    init(auth: Auth) {
+        _viewModel = StateObject(wrappedValue: ViewModel(auth: auth))
+    }
+    
     var body: some View {
-        Text("Hello, Home!")
+        VStack {
+            Text("Hello, Home!")
+        }
+        .navigationBarBackButtonHidden(true)
     }
 }
 
 #Preview {
-    HomeView()
+    HomeView(auth: Auth.auth())
 }
