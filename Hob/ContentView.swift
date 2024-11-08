@@ -6,15 +6,39 @@
 //
 
 import SwiftUI
+import FirebaseAuth
 
 struct ContentView: View {
+    @StateObject private var viewModel: ViewModel
+    
+    init(auth: Auth) {
+        _viewModel = StateObject(wrappedValue: ViewModel(auth: auth))
+    }
+    
     var body: some View {
-        NavigationStack {
+        if viewModel.isAuthenticated {
+            
+        } else {
             WelcomeView()
         }
     }
 }
 
+extension ContentView {
+    class ViewModel: ObservableObject {
+        @Published var isAuthenticated = false
+        let auth: Auth
+        
+        init(auth: Auth) {
+            self.auth = auth
+        }
+        
+        func checkIfUserIsAuthenticated() {
+            isAuthenticated = auth.currentUser?.uid != nil
+        }
+    }
+}
+
 #Preview {
-    ContentView()
+    ContentView(auth: Auth.auth())
 }

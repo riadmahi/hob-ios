@@ -9,7 +9,7 @@ import SwiftUI
 
 extension SignInView {
     
-    class viewModel: ObservableObject {
+    class ViewModel: ObservableObject {
         
         
     }
