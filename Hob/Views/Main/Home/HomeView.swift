@@ -17,7 +17,7 @@ struct HomeView : View {
     
     var body: some View {
         VStack {
-            Text("Hello, Home!")
+            HobTabView()
         }
         .navigationBarBackButtonHidden(true)
     }
@@ -25,4 +25,5 @@ struct HomeView : View {
 
 #Preview {
     HomeView(auth: Auth.auth())
+        .preferredColorScheme(.dark)
 }

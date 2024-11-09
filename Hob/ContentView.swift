@@ -31,6 +31,7 @@ extension ContentView {
         
         init(auth: Auth) {
             self.auth = auth
+            self.checkIfUserIsAuthenticated()
         }
         
         func checkIfUserIsAuthenticated() {
