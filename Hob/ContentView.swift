@@ -17,7 +17,7 @@ struct ContentView: View {
     
     var body: some View {
         if viewModel.isAuthenticated {
-            HomeView(auth: viewModel.auth)
+            MainView()
         } else {
             WelcomeView(auth: viewModel.auth)
         }

@@ -17,9 +17,8 @@ struct HomeView : View {
     
     var body: some View {
         VStack {
-            HobTabView()
+           Text("HomeView")
         }
-        .navigationBarBackButtonHidden(true)
     }
 }
 

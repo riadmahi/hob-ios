@@ -36,8 +36,8 @@ enum HobTab: Int, CaseIterable {
     
     var isLocked: Bool {
         switch self {
-        case .chat:
-            return true
+        //case .chat:
+        //    return true
         default:
             return false
         }
@@ -45,7 +45,7 @@ enum HobTab: Int, CaseIterable {
 }
 
 struct HobTabView: View {
-    @State private var selectedTab: HobTab = .explore
+    @Binding var selectedTab: HobTab
     
     var body: some View {
         HStack {
@@ -106,7 +106,7 @@ struct HobTabItem: View {
                 }
             }
             Text(tab.title)
-                .brSonomaFont(.medium, 13)
+                .brSonomaFont(.medium, 12)
                 .foregroundColor(selectedColor)
         }
         .padding(.vertical, 8)
@@ -140,7 +140,17 @@ struct Line: Shape {
         return path
     }
 }
-#Preview {
-    HobTabView()
-        .preferredColorScheme(.dark)
+struct HobTabView_Previews: PreviewProvider {
+    static var previews: some View {
+        PreviewWrapper()
+            .preferredColorScheme(.dark)
+    }
+
+    struct PreviewWrapper: View {
+        @State private var selectedTab: HobTab = .explore
+
+        var body: some View {
+            HobTabView(selectedTab: $selectedTab)
+        }
+    }
 }

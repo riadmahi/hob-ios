@@ -66,7 +66,7 @@ struct SignInView: View {
             ForgotPasswordView(auth: viewModel.auth)
         }
         .navigationDestination(isPresented: $viewModel.isAuthenticated) {
-            HomeView(auth: viewModel.auth)
+            MainView()
         }
     }
 }
