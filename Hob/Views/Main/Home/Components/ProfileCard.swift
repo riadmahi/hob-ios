@@ -9,7 +9,6 @@ import SwiftUI
 import WrappingHStack
 
 struct ProfileCard: View {
-    @StateObject private var carouselVM = CarouselViewModel()
     
     let profile = Profile(
         uid: "12345",
@@ -19,7 +18,7 @@ struct ProfileCard: View {
         birthdate: Date(timeIntervalSince1970: 0),
         photos: [
             "https://images.unsplash.com/photo-1552162864-987ac51d1177?q=80&w=2980&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-            "https://images.unsplash.com/photo-1674334224337-1831e41c36f6?w=800&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1yZWxhdGVkfDJ8fHxlbnwwfHx8fHw%3D"
+            "https://images.unsplash.com/photo-1727160930825-97245483a509?w=800&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxmZWF0dXJlZC1waG90b3MtZmVlZHw0fHx8ZW58MHx8fHx8"
         ],
         interests: ["Café", "Voyage", "Randonnées"],
         origins: ["Maghreb"],
@@ -40,8 +39,7 @@ struct ProfileCard: View {
     
     var body: some View {
         ZStack(alignment: .bottom) {
-            CarouselView(photos: profile.photos)
-                .environmentObject(carouselVM.stateModel)
+            Carousel(photos: profile.photos)
             VStack(spacing: 4) {
                 HStack(spacing: 8) {
                     Text(profile.name)
@@ -65,12 +63,12 @@ struct ProfileCard: View {
                     ProfileTag(tag: interest, isSelected: true)
                 }
                 .padding(.top, 12)
-                CarouselDotsIndicator(carouselVM: carouselVM, dots: profile.photos.count)
-                .padding(.top, 12)
+                .padding(.bottom, 24)
+                
                 
             }
             .padding(.horizontal, 12)
-            .padding(.bottom, 12)
+            .padding(.bottom, 24)
             
         }
         .frame(maxWidth: .infinity, maxHeight: 600)
@@ -78,6 +76,39 @@ struct ProfileCard: View {
     }
 }
 
+struct Carousel: View {
+    let photos: [String]
+    @State private var currentTabIndex = 0
+    
+    var body: some View {
+        TabView(selection: $currentTabIndex) {
+            ForEach(photos.indices, id: \.self) { index in
+                AsyncImage(url: URL(string: photos[index])) { result in
+                    result.image?
+                        .resizable()
+                        .aspectRatio(contentMode: .fill)
+                        .clipped()
+                }
+                .tag(index)
+            }
+        }
+        .tabViewStyle(PageTabViewStyle(indexDisplayMode: .never))
+        
+        HStack(spacing: 6) {
+            ForEach(photos.indices, id: \.self) { index in
+                Circle()
+                    .fill(currentTabIndex == index ? Color("AccentColor") : Color(hex: 0x7B3773))
+                    .frame(width: 8, height: 8)
+            }
+        }
+        .padding(.horizontal, 12)
+        .padding(.vertical, 6)
+        .background(Color("SecondaryContainerColor"))
+        .clipShape(RoundedRectangle(cornerRadius: 24))
+        .padding(.bottom, 10)
+    }
+    
+}
 #Preview {
     ProfileCard()
         .preferredColorScheme(.dark)

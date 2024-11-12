@@ -16,10 +16,18 @@ struct HomeView : View {
     }
     
     var body: some View {
-        VStack {
-            ProfileCard()
-                .padding(.horizontal, 12)
+        ScrollView {
+            LazyVStack(alignment: .center) {
+                ForEach(0..<8) { _ in
+                    ProfileCard()
+                        .frame(height: 600)
+                        .padding(.horizontal, 12)
+                        .padding(.bottom, 32)
+                    
+                }
+            }
         }
+        
     }
 }
 
