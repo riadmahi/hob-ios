@@ -9,7 +9,7 @@ import SwiftUI
 import WrappingHStack
 
 struct ProfileCard: View {
-    
+    @State var showProfile: Bool = false
     let profile = Profile(
         uid: "12345",
         email: "safia@example.com",
@@ -64,15 +64,18 @@ struct ProfileCard: View {
                 }
                 .padding(.top, 12)
                 .padding(.bottom, 24)
-                
-                
             }
             .padding(.horizontal, 12)
             .padding(.bottom, 24)
-            
         }
         .frame(maxWidth: .infinity, maxHeight: 600)
         .clipShape(RoundedRectangle(cornerRadius: 30))
+        .onTapGesture {
+            showProfile = true
+        }
+        .navigationDestination(isPresented: $showProfile) {
+            ViewProfileView()
+        }
     }
 }
 
