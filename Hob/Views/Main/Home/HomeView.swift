@@ -32,7 +32,7 @@ struct HomeView : View {
                 }
             }
             .scrollTargetLayout()
-            .padding(.bottom, 60)
+            .padding(.bottom, 100)
         }
         .scrollTargetBehavior(.viewAligned)
     }

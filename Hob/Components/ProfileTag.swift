@@ -18,7 +18,7 @@ struct ProfileTag: View {
         .padding(.horizontal, 12)
         .padding(.vertical, 8)
         .background(
-            isSelected ? LinearGradient(gradient: Gradient(colors: [Color(hex: 0xFF4CEA), Color(hex: 0xFF91F2)]), startPoint: .bottomLeading, endPoint: .topTrailing) : LinearGradient(gradient: Gradient(colors: [Color(hex: 0x1F111B).opacity(0.45)]), startPoint: .top, endPoint: .bottom))
+            isSelected ? LinearGradient(gradient: Gradient(colors: [Color(hex: 0xFF4CEA), Color(hex: 0xFF91F2)]), startPoint: .bottomLeading, endPoint: .topTrailing) : LinearGradient(gradient: Gradient(colors: [Color(hex: 0x3C1E34)]), startPoint: .top, endPoint: .bottom))
         .clipShape(RoundedRectangle(cornerRadius: 24))
         .overlay(
             RoundedRectangle(cornerRadius: 24)

@@ -6,9 +6,12 @@
 //
 
 import SwiftUI
+import WrappingHStack
 
 struct ViewProfileView: View {
     var spectatorMode = false
+    @State var note: String = ""
+
     var body: some View {
         ScrollView {
             LazyVStack(spacing: 12) {
@@ -43,6 +46,41 @@ struct ViewProfileView: View {
                         .multilineTextAlignment(.leading)
                         .frame(maxWidth: .infinity, alignment: .leading)
                         .padding(.horizontal, 0)
+                    
+                    WrappingHStack(["Confiant", "Drôle", "Romantique"], id: \.self) { interest in
+                        ProfileTag(tag: interest)
+                    }.padding(.top, 6)
+                }
+                
+                SectionCard(title: "Centres d'intérêt (2 en commun)") {
+                    WrappingHStack(["Foot", "Café", "Dance"], id: \.self) { interest in
+                        ProfileTag(tag: interest)
+                    }.padding(.top, 6)
+                }
+                
+                SectionCard(title: "On est dans la même room parceque") {
+                    WrappingHStack(["Maroc", "Darija", "Francais", "Islam", "Veut se marier vite"], id: \.self, lineSpacing: 12) { interest in
+                        ProfileTag(tag: interest)
+                    }.padding(.top, 6)
+                }
+                
+                SectionCard(title: "Envoyer une note") {
+                    VStack {
+                        TextField(
+                            "Écris ici ta note pour Safia",
+                            text: $note
+                        )
+                        .lineLimit(4...)
+                        .font(.brSonomaFont(.semiBold, 20))
+                        .accentColor(Color("AccentColor"))
+                        
+                        HStack {
+                            Spacer()
+                            HobIconButton(iconName: "CheckIcon") {
+                                
+                            }
+                        }
+                    }
                 }
             }
             .padding(.horizontal, 12)
