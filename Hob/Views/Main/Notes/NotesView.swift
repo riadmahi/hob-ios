@@ -9,7 +9,15 @@ import SwiftUI
 
 struct NotesView: View {
     var body: some View {
-        Text("Notes")
+        ScrollView {
+            LazyVStack {
+                ForEach(0..<8) { _ in
+                    NoteCard()
+                }
+            }
+            .padding(.horizontal, 12)
+            .padding(.bottom, 100)
+        }
     }
 }
 
