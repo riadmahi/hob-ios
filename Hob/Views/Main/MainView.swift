@@ -14,15 +14,18 @@ struct MainView : View {
 
     var body: some View {
         ZStack {
-            switch selectedTab {
-            case .explore:
-                HomeView(auth: Auth.auth())
-            case .notes:
-                NotesView()
-            case .chat:
-                ChatView()
+            VStack {
+                MainTopBar()
+                switch selectedTab {
+                    case .explore:
+                        HomeView(auth: Auth.auth())
+                    case .notes:
+                        NotesView()
+                    case .chat:
+                        ChatView()
+                }
             }
-            
+           
             VStack {
                 Spacer()
                 HobTabView(selectedTab: $selectedTab)
