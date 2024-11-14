@@ -7,31 +7,54 @@
 
 import SwiftUI
 
-import SwiftUI
-
 struct OnBoardingView: View {
+    @State private var animateSteps = false
+    @State private var navigateToGeneral = false
+    @State private var navigateToQuiz = false
+    
     var body: some View {
         VStack {
             AuthStepHeader(
-                screenName: "Inscription", displayName: "Mode création",
+                screenName: "Inscription",
+                displayName: "Mode création",
                 subtitle: "En remplissant ces questionnaires, vous trouverez des profils pépite 💎"
             )
             .padding(.bottom, 48)
+            .opacity(animateSteps ? 1 : 0)
+            .animation(.easeIn(duration: 1), value: animateSteps)
             
             ZStack {
-                // Dessiner la ligne courbée pointillée
+                // Dessiner la ligne courbée pointillée avec animation
                 DottedCurvedLineView()
-                    .padding(.top, 48) // Ajuster la position de la ligne
+                    .opacity(animateSteps ? 1 : 0)
+                    .animation(.easeOut(duration: 4), value: animateSteps)
+                
                 
                 VStack(spacing: 0) { // Espacement entre les étapes
-                    OnBoardingStep(image: "FirstStepIcon", title: "Général")
-                        .position(x: 100, y: 100) // Étape 1 en haut à gauche
+                    OnBoardingStep(image: "FirstStepIcon", title: "Général") {
+                        self.navigateToGeneral = true
+                        
+                    }
+                    .offset(x: 0, y: animateSteps ? -50 : 0)
+                    .opacity(animateSteps ? 1 : 0)
+                    .animation(.easeOut(duration: 0.5).delay(0.5), value: animateSteps)
+                    .position(x: 100, y: 100)
                     
-                    OnBoardingStep(image: "SecondStepIcon", title: "Valeurs & Priorités")
-                        .position(x: 300, y: 50) // Étape 2 au milieu à droite
+                    OnBoardingStep(image: "SecondStepIcon", title: "Valeurs & Priorités") {
+                        
+                    }
+                    .offset(x: 0, y: animateSteps ? -40 : 50)
+                    .opacity(animateSteps ? 1 : 0)
+                    .animation(.easeOut(duration: 0.5).delay(1.0), value: animateSteps)
+                    .position(x: 300, y: 50)
                     
-                    OnBoardingStep(image: "QuizIcon", title: "Quiz de personnalité")
-                        .position(x: 150, y: 50)
+                    OnBoardingStep(image: "QuizIcon", title: "Quiz de personnalité") {
+                        self.navigateToQuiz = true
+                    }
+                    .offset(x: 0, y: animateSteps ? -25 : 0)
+                    .opacity(animateSteps ? 1 : 0)
+                    .animation(.easeOut(duration: 0.5).delay(1.5), value: animateSteps)
+                    .position(x: 150, y: 50)
                 }
             }
             
@@ -40,47 +63,59 @@ struct OnBoardingView: View {
             HobButton(text: "Finaliser", width: .infinity) {
                 // Action à définir
             }
+            .opacity(animateSteps ? 1 : 0)
+            .animation(.easeIn(duration: 1).delay(2.0), value: animateSteps)
+            .padding(.bottom, 32)
         }
         .padding(.horizontal, 12)
         .background(LinearGradient(colors: [Color(hex: 0x461337), .black], startPoint: .top, endPoint: .bottom))
+        .onAppear {
+            DispatchQueue.main.async {
+                animateSteps = true
+            }
+        }
+        .navigationDestination(isPresented: $navigateToGeneral) {
+            
+        }
+        .navigationDestination(isPresented: $navigateToQuiz) {
+            PersonalityQuizView()
+        }
     }
 }
-
 struct DottedCurvedLineView: View {
     var body: some View {
         Path { path in
-            // Connexion de l'étape 1 à l'étape 2 (haut à gauche vers le milieu à droite)
-            path.move(to: CGPoint(x: 100, y: 110))  // Point de départ (étape 1)
+            path.move(to: CGPoint(x: 100, y: 110))
             
-            // Première courbe vers l'étape 2 (au milieu à droite)
             path.addCurve(to: CGPoint(x: 300, y: 150),
-                          control1: CGPoint(x: 150, y: 150), // Premier point de contrôle
-                          control2: CGPoint(x: 250, y: 40)) // Deuxième point de contrôle
+                          control1: CGPoint(x: 150, y: 150),
+                          control2: CGPoint(x: 250, y: 40))
             
         }
-        .stroke(style: StrokeStyle(lineWidth: 2, dash: [5, 5])) // Style pointillé
-        .foregroundColor(.white) // Couleur de la ligne
+        .stroke(style: StrokeStyle(lineWidth: 2, dash: [5, 5]))
+        .foregroundColor(.white)
         
         Path { path in
-            // Connexion de l'étape 1 à l'étape 2 (haut à gauche vers le milieu à droite)
-            path.move(to: CGPoint(x: 300, y: 250))  // Point de départ (étape 1)
+            path.move(to: CGPoint(x: 300, y: 250))
             
-            // Première courbe vers l'étape 2 (au milieu à droite)
-            path.addCurve(to: CGPoint(x: 150, y: 350),
-                          control1: CGPoint(x: 250, y: 350), // Premier point de contrôle
-                          control2: CGPoint(x: 200, y: 280)) // Deuxième point de contrôle
+            path.addCurve(to: CGPoint(x: 150, y: 340),
+                          control1: CGPoint(x: 250, y: 350),
+                          control2: CGPoint(x: 200, y: 250))
             
         }
-        .stroke(style: StrokeStyle(lineWidth: 2, dash: [5, 5])) // Style pointillé
-        .foregroundColor(.white) // Couleur de la ligne
+        .stroke(style: StrokeStyle(lineWidth: 2, dash: [5, 5]))
+        .foregroundColor(.white)
     }
 }
 
 struct OnBoardingStep: View {
     let image: String
     let title: String
+    let onClick: () -> Void
     var body: some View {
-        Button {} label: {
+        Button {
+            onClick()
+        } label: {
             VStack(spacing: -12) {
                 Image(image)
                     .resizable()

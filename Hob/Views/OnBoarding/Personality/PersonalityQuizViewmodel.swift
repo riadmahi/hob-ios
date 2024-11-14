@@ -20,7 +20,6 @@ class PersonalityQuizViewModel: ObservableObject {
     }
     
     func loadQuiz() {
-        // Assurez-vous que le nom du fichier et l'extension sont corrects
         if let url = Bundle.main.url(forResource: "personalities", withExtension: "json") {
             do {
                 let data = try Data(contentsOf: url)

@@ -11,36 +11,30 @@ import SwiftUI
 struct PersonalityResultView: View {
     let category: Category
     let onRestart: () -> Void
+    @Environment(\.dismiss) private var dismiss
 
     var body: some View {
         VStack(spacing: 20) {
-            Text("🎉 Félicitations !")
-                .font(.largeTitle)
+            Text(category.name)
+                .brSonomaFont(.bold, 24)
                 .padding(.top, 40)
 
-            Text(category.name)
-                .font(.title)
-                .fontWeight(.bold)
-
             Text(category.description)
-                .font(.body)
+                .brSonomaFont(.regular, 18)
+                .foregroundColor(Color("PlaceholderColor"))
                 .multilineTextAlignment(.center)
                 .padding()
-
             Spacer()
-
-            Button(action: {
+            
+            HobButton(text: "Sauvegarder", width: .infinity) {
+                dismiss()
+            }
+            
+            GhostHobButton(text: "Recommencer le Quiz", width: .infinity) {
                 onRestart()
-            }) {
-                Text("Recommencer le Quiz")
-                    .foregroundColor(.white)
-                    .padding()
-                    .frame(maxWidth: .infinity)
-                    .background(Color.blue)
-                    .cornerRadius(10)
             }
             .padding(.bottom, 40)
         }
-        .padding()
+        .padding(.horizontal, 12)
     }
 }

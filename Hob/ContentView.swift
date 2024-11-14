@@ -43,4 +43,5 @@ extension ContentView {
 
 #Preview {
     ContentView(auth: Auth.auth())
+        .preferredColorScheme(.dark)
 }
