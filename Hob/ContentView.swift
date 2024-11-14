@@ -18,7 +18,7 @@ struct ContentView: View {
     var body: some View {
         if viewModel.isAuthenticated {
             //MainView()
-            PersonalityQuizView()
+            OnBoardingView()
         } else {
             WelcomeView(auth: viewModel.auth)
         }
