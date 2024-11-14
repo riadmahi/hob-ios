@@ -20,6 +20,7 @@ struct RadioCard: View {
 
                 Text(label)
                     .brSonomaFont(.semiBold, 16)
+                    .multilineTextAlignment(.leading)
                     .padding(.leading, 8)
                     .foregroundColor(.white)
 

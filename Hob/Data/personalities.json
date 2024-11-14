@@ -1,0 +1,160 @@
+{
+  "quiz": {
+    "title": "Découvrez Votre Personnalité",
+    "description": "Répondez à ces 5 questions pour mieux comprendre votre personnalité et trouver des correspondances compatibles.",
+    "questions": [
+      {
+        "id": 1,
+        "text": "Quelle activité vous apporte le plus de satisfaction pendant votre temps libre ?",
+        "answers": [
+          {
+            "id": "A",
+            "text": "📚 Lire un livre inspirant ou religieux",
+            "category": "RéfléchiSpirituel"
+          },
+          {
+            "id": "B",
+            "text": "🏃‍♂️ Pratiquer un sport ou une activité physique",
+            "category": "DynamiqueÉquilibré"
+          },
+          {
+            "id": "C",
+            "text": "🎨 Créer ou apprécier de l'art",
+            "category": "TranquilleBienveillant"
+          },
+          {
+            "id": "D",
+            "text": "🤝 Participer à des activités communautaires ou bénévoles",
+            "category": "SociableInspirant"
+          }
+        ]
+      },
+      {
+        "id": 2,
+        "text": "Comment décririez-vous votre façon de socialiser ?",
+        "answers": [
+          {
+            "id": "A",
+            "text": "😊 Très sociable, j'aime rencontrer de nouvelles personnes",
+            "category": "SociableInspirant"
+          },
+          {
+            "id": "B",
+            "text": "🧘‍♂️ Plutôt réservé(e), je préfère des petits cercles d'amis proches",
+            "category": "TranquilleBienveillant"
+          },
+          {
+            "id": "C",
+            "text": "🌟 Un mélange des deux, selon mon humeur",
+            "category": "DynamiqueÉquilibré"
+          },
+          {
+            "id": "D",
+            "text": "📱 J'apprécie les interactions en ligne autant qu'en personne",
+            "category": "RéfléchiSpirituel"
+          }
+        ]
+      },
+      {
+        "id": 3,
+        "text": "Quelle est votre principale motivation dans la vie ?",
+        "answers": [
+          {
+            "id": "A",
+            "text": "🎯 Atteindre des objectifs personnels et professionnels",
+            "category": "DynamiqueÉquilibré"
+          },
+          {
+            "id": "B",
+            "text": "❤️ Construire et entretenir des relations significatives",
+            "category": "SociableInspirant"
+          },
+          {
+            "id": "C",
+            "text": "🌱 Développer ma spiritualité et ma foi",
+            "category": "RéfléchiSpirituel"
+          },
+          {
+            "id": "D",
+            "text": "🌍 Contribuer positivement à la communauté et au monde",
+            "category": "TranquilleBienveillant"
+          }
+        ]
+      },
+      {
+        "id": 4,
+        "text": "Comment gérez-vous le stress ou les situations difficiles ?",
+        "answers": [
+          {
+            "id": "A",
+            "text": "🧘‍♀️ Par la méditation ou la prière",
+            "category": "RéfléchiSpirituel"
+          },
+          {
+            "id": "B",
+            "text": "🗣️ En en parlant avec des amis ou la famille",
+            "category": "SociableInspirant"
+          },
+          {
+            "id": "C",
+            "text": "🏃‍♀️ En faisant de l'exercice ou en me changeant les idées",
+            "category": "DynamiqueÉquilibré"
+          },
+          {
+            "id": "D",
+            "text": "📖 En me plongeant dans la lecture ou d'autres activités calmes",
+            "category": "TranquilleBienveillant"
+          }
+        ]
+      },
+      {
+        "id": 5,
+        "text": "Quelle qualité appréciez-vous le plus chez vous-même ?",
+        "answers": [
+          {
+            "id": "A",
+            "text": "💡 Mon sens de l'humour et ma capacité à faire rire",
+            "category": "SociableInspirant"
+          },
+          {
+            "id": "B",
+            "text": "🕊️ Ma patience et ma capacité à écouter",
+            "category": "TranquilleBienveillant"
+          },
+          {
+            "id": "C",
+            "text": "🔥 Ma détermination et ma persévérance",
+            "category": "DynamiqueÉquilibré"
+          },
+          {
+            "id": "D",
+            "text": "🌟 Mon empathie et ma bienveillance envers les autres",
+            "category": "RéfléchiSpirituel"
+          }
+        ]
+      }
+    ]
+  },
+  "categories": [
+    {
+      "id": "SociableInspirant",
+      "name": "Le Sociable Inspirant",
+      "description": "Vous êtes quelqu'un qui aime la compagnie des autres et qui trouve son inspiration dans le partage et l'échange. Vous recherchez un partenaire avec qui vous pouvez partager vos expériences, apprendre et grandir ensemble."
+    },
+    {
+      "id": "RéfléchiSpirituel",
+      "name": "Le Réfléchi Spirituel",
+      "description": "Vous êtes une personne introspective, mettant l'accent sur la spiritualité et la réflexion personnelle. Vous cherchez un partenaire qui partage vos valeurs et avec qui vous pouvez approfondir votre foi et votre compréhension du monde."
+    },
+    {
+      "id": "DynamiqueÉquilibré",
+      "name": "Le Dynamique Équilibré",
+      "description": "Vous menez une vie active et équilibrée, appréciant à la fois l'aventure et la stabilité. Vous recherchez un partenaire qui peut suivre votre rythme et qui partage votre désir de profiter pleinement de la vie."
+    },
+    {
+      "id": "TranquilleBienveillant",
+      "name": "Le Tranquille Bienveillant",
+      "description": "Vous êtes calme, réfléchi(e) et attentionné(e). Vous valorisez la paix intérieure et la bienveillance. Vous cherchez un partenaire qui apprécie votre tranquillité et qui partage votre perspective sur la vie et les relations."
+    }
+  ]
+}

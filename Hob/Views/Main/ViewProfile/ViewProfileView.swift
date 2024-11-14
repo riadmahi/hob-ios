@@ -68,7 +68,8 @@ struct ViewProfileView: View {
                     VStack {
                         TextField(
                             "Écris ici ta note pour Safia",
-                            text: $note
+                            text: $note,
+                            axis: .vertical
                         )
                         .lineLimit(4...)
                         .font(.brSonomaFont(.semiBold, 20))
@@ -109,4 +110,5 @@ struct SectionCard<Content: View>: View {
 
 #Preview {
     ViewProfileView()
+        .preferredColorScheme(.dark)
 }
