@@ -18,6 +18,7 @@ struct AuthStepHeader: View {
                 .brSonomaFont(.regular, 13)
             Text(displayName)
                 .brSonomaFont(.black, 20)
+                .multilineTextAlignment(.center)
             if let subtitleText = subtitle {
                 Text(subtitleText)
                     .brSonomaFont(.regular, 15)
