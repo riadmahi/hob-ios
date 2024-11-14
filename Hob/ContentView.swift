@@ -18,7 +18,8 @@ struct ContentView: View {
     var body: some View {
         if viewModel.isAuthenticated {
             //MainView()
-            OnBoardingView()
+            //OnBoardingView()
+            InterestsView()
         } else {
             WelcomeView(auth: viewModel.auth)
         }
