@@ -11,6 +11,8 @@ struct SpiritualityPracticeView: View {
     @State var isWoman: Bool? = nil
     var practiceList = ["Je suis en chemin", "Pratiquant(e) modéré(e)", "Pratiquant(e) engagé(e)", "Très pratiquant(e)"]
     @State private var selectedPractice: String? = nil
+    let onNext: () -> Void
+
     var body: some View {
         VStack(spacing: 48) {
             AuthStepHeader(
@@ -23,12 +25,9 @@ struct SpiritualityPracticeView: View {
                         label: practice,
                         selected: self.selectedPractice == practice) {
                             selectedPractice = practice
+                            onNext()
                         }
-
                 }
-            }
-            HobButton(text: "Suivant", width: .infinity) {
-                
             }
             Spacer()
         }
@@ -37,7 +36,7 @@ struct SpiritualityPracticeView: View {
 }
 
 #Preview {
-    SpiritualityPracticeView()
+    SpiritualityPracticeView() { }
         .preferredColorScheme(.dark)
 }
 

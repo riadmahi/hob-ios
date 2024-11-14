@@ -11,7 +11,8 @@ struct ValuesView: View {
     let values = ["Famille", "Respect", "Honnêteté", "Ambition", "Compassion", "Tradition", "Éducation", "Spiritualité"]
     
     @State private var selectedValues: Set<String> = []
-    
+    let onNext: () -> Void
+
     var body: some View {
         VStack(spacing: 48) {
             AuthStepHeader(
@@ -34,6 +35,7 @@ struct ValuesView: View {
             
             HobButton(text: "Suivant", width: .infinity) {
                 print("Valeurs sélectionnées : \(selectedValues)")
+                onNext()
             }
             .disabled(selectedValues.isEmpty) 
             

@@ -10,7 +10,9 @@ import SwiftUI
 struct OnBoardingView: View {
     @State private var animateSteps = false
     @State private var navigateToGeneral = false
+    @State private var navigateToValuesAndPriorites = false
     @State private var navigateToQuiz = false
+    @State private var unlockedStep = 2
     
     var body: some View {
         VStack {
@@ -33,7 +35,6 @@ struct OnBoardingView: View {
                 VStack(spacing: 0) { // Espacement entre les étapes
                     OnBoardingStep(image: "FirstStepIcon", title: "Général") {
                         self.navigateToGeneral = true
-                        
                     }
                     .offset(x: 0, y: animateSteps ? -50 : 0)
                     .opacity(animateSteps ? 1 : 0)
@@ -41,12 +42,14 @@ struct OnBoardingView: View {
                     .position(x: 100, y: 100)
                     
                     OnBoardingStep(image: "SecondStepIcon", title: "Valeurs & Priorités") {
-                        
+                        self.navigateToValuesAndPriorites = true
                     }
                     .offset(x: 0, y: animateSteps ? -40 : 50)
                     .opacity(animateSteps ? 1 : 0)
                     .animation(.easeOut(duration: 0.5).delay(1.0), value: animateSteps)
                     .position(x: 300, y: 50)
+                    .opacity(unlockedStep < 1 ? 0.3 : 1)
+
                     
                     OnBoardingStep(image: "QuizIcon", title: "Quiz de personnalité") {
                         self.navigateToQuiz = true
@@ -55,6 +58,7 @@ struct OnBoardingView: View {
                     .opacity(animateSteps ? 1 : 0)
                     .animation(.easeOut(duration: 0.5).delay(1.5), value: animateSteps)
                     .position(x: 150, y: 50)
+                    .opacity(unlockedStep < 2 ? 0.3 : 1)
                 }
             }
             
@@ -80,6 +84,9 @@ struct OnBoardingView: View {
         .navigationDestination(isPresented: $navigateToQuiz) {
             PersonalityQuizView()
         }
+        .navigationDestination(isPresented: $navigateToValuesAndPriorites) {
+            ValuesAndPriorityView()
+        }
     }
 }
 struct DottedCurvedLineView: View {
@@ -93,7 +100,7 @@ struct DottedCurvedLineView: View {
             
         }
         .stroke(style: StrokeStyle(lineWidth: 2, dash: [5, 5]))
-        .foregroundColor(.white)
+        .foregroundColor(Color("PlaceholderColor"))
         
         Path { path in
             path.move(to: CGPoint(x: 300, y: 250))
@@ -104,7 +111,7 @@ struct DottedCurvedLineView: View {
             
         }
         .stroke(style: StrokeStyle(lineWidth: 2, dash: [5, 5]))
-        .foregroundColor(.white)
+        .foregroundColor(Color("PlaceholderColor"))
     }
 }
 

@@ -17,6 +17,7 @@ struct SpiritualityView: View {
         "Judaïsme",
         "Autre"]
     @State private var selectedReligion: String? = nil
+    let onNext: () -> Void
     
     var body: some View {
         VStack(spacing: 48) {
@@ -32,12 +33,9 @@ struct SpiritualityView: View {
                         selected: self.selectedReligion == religion
                     ) {
                         selectedReligion = religion
+                        onNext()
                     }
                 }
-            }
-            HobButton(text: "Suivant", width: .infinity) {
-                // Action à définir, par exemple naviguer vers l'étape suivante
-                print("Religion sélectionnée : \(selectedReligion ?? "Aucune")")
             }
             Spacer()
         }
@@ -48,6 +46,6 @@ struct SpiritualityView: View {
 
 
 #Preview {
-    SpiritualityView()
+    SpiritualityView() { }
         .preferredColorScheme(.dark)
 }

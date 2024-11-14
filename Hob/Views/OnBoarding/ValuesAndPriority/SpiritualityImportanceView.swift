@@ -9,9 +9,10 @@
 import SwiftUI
 
 struct SpiritualityImportanceView: View {
-    @State var isWoman: Bool? = nil
     var importanceList = ["Essentielle", "Importante", "Peu importante", "Pas importante"]
     @State private var selectedImportance: String? = nil
+    let onNext: () -> Void
+    
     var body: some View {
         VStack(spacing: 48) {
             AuthStepHeader(
@@ -24,12 +25,9 @@ struct SpiritualityImportanceView: View {
                         label: importance,
                         selected: self.selectedImportance == importance) {
                             selectedImportance = importance
+                            onNext()
                         }
-
                 }
-            }
-            HobButton(text: "Suivant", width: .infinity) {
-                
             }
             Spacer()
         }
@@ -38,7 +36,7 @@ struct SpiritualityImportanceView: View {
 }
 
 #Preview {
-    SpiritualityImportanceView()
+    SpiritualityImportanceView() { }
         .preferredColorScheme(.dark)
 }
 

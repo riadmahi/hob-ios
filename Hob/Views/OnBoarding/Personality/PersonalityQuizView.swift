@@ -17,7 +17,7 @@ struct PersonalityQuizView: View {
                     PersonalityResultView(category: category, onRestart: {
                         viewModel.resetQuiz()
                     })
-                    .transition(.slide)
+                    .navigationBarBackButtonHidden(true)
                 } else {
                     VStack {
                         Image("QuizIcon")
@@ -50,8 +50,6 @@ struct PersonalityQuizView: View {
                 }
             } else {
                 ProgressView("Chargement du Quiz...")
-                    .onAppear {
-                    }
             }
         }
         .animation(.default, value: viewModel.currentQuestionIndex)
