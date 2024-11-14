@@ -9,17 +9,17 @@ import SwiftUI
 
 struct JobView: View {
     @State var job: String = ""
-    
+    let next: () -> Void
     var body: some View {
         VStack(spacing: 48) {
             AuthStepHeader(
-                screenName: "Inscription",
+                screenName: "Général",
                 displayName: "Indique ton emploi actuel"
             )
             HobTextField(hint: "Emploi (sans emploi, étudiant, etc.)", text: $job)
 
             HobButton(text: "Suivant", width: .infinity) {
-                
+                next()
             }
             Spacer()
         }
@@ -28,6 +28,6 @@ struct JobView: View {
 }
 
 #Preview {
-    JobView()
+    JobView() { }
         .preferredColorScheme(.dark)
 }

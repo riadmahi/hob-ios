@@ -10,6 +10,7 @@ import WrappingHStack
 struct InterestsView: View {
     @State private var interests: [String] = []
     @State private var selectedInterests: [String] = []
+    let next: () -> Void
 
     private let maxSelection = 15
 
@@ -35,7 +36,7 @@ struct InterestsView: View {
             }
 
             HobButton(text: "Suivant", width: .infinity) {
-                
+                next()
             }
             .padding(.horizontal, 12)
         }

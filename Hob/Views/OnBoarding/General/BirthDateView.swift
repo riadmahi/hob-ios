@@ -9,11 +9,12 @@ import SwiftUI
 
 struct BirthDateView: View {
     @State private var birthDate = Date.now
+    let next: () -> Void
 
     var body: some View {
         VStack(spacing: 48) {
             AuthStepHeader(
-                screenName: "Inscription",
+                screenName: "Général",
                 displayName: "Indique ta date de naissance"
             )
             DatePicker(selection: $birthDate, in: ...Date.now, displayedComponents: .date) {
@@ -24,7 +25,7 @@ struct BirthDateView: View {
             .aspectRatio(contentMode: .fill)
             
             HobButton(text: "Suivant", width: .infinity) {
-                
+                next()
             }
             Spacer()
         }
@@ -33,7 +34,7 @@ struct BirthDateView: View {
 }
 
 #Preview {
-    BirthDateView()
+    BirthDateView() { }
         .preferredColorScheme(.dark)
 }
 

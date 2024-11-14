@@ -79,7 +79,7 @@ struct OnBoardingView: View {
             }
         }
         .navigationDestination(isPresented: $navigateToGeneral) {
-            
+            GeneralView()
         }
         .navigationDestination(isPresented: $navigateToQuiz) {
             PersonalityQuizView()

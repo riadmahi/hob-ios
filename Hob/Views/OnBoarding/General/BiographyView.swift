@@ -9,11 +9,11 @@ import SwiftUI
 
 struct BiographyView: View {
     @State var biography: String = ""
-    
+    let next: () -> Void
     var body: some View {
         VStack(spacing: 48) {
             AuthStepHeader(
-                screenName: "Inscription",
+                screenName: "Général",
                 displayName: "Ajoute ta description"
             )
             VStack {
@@ -30,8 +30,8 @@ struct BiographyView: View {
             .background(Color("SecondaryContainerColor"))
             .clipShape(RoundedRectangle(cornerRadius: 10))
 
-            HobButton(text: "Suivant", width: .infinity) {
-                
+            HobButton(text: "Finaliser", width: .infinity) {
+                next()
             }
             Spacer()
         }
@@ -40,6 +40,6 @@ struct BiographyView: View {
 }
 
 #Preview {
-    BiographyView()
+    BiographyView() { }
         .preferredColorScheme(.dark)
 }
