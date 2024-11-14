@@ -30,7 +30,7 @@ struct RadioCard: View {
             .background(selected ? Color("ContainerColor") : Color("SecondaryContainerColor"))
             .overlay(
                     RoundedRectangle(cornerRadius: 10)
-                        .stroke(selected ? Color.white: Color.clear, lineWidth: 2)
+                        .stroke(selected ? Color.white: Color.clear, lineWidth: 3)
             )
             .cornerRadius(10)
 
