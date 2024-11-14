@@ -28,6 +28,6 @@ struct JobView: View {
 }
 
 #Preview {
-    DisplayNameView()
+    JobView()
         .preferredColorScheme(.dark)
 }
