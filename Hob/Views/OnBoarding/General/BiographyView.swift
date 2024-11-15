@@ -10,12 +10,23 @@ import SwiftUI
 struct BiographyView: View {
     @State var biography: String = ""
     let next: () -> Void
+    let back: () -> Void
     var body: some View {
         VStack(spacing: 48) {
-            AuthStepHeader(
-                screenName: "Général",
-                displayName: "Ajoute ta description"
-            )
+            VStack(spacing: 12) {
+                HStack {
+                    Button(action: back) {
+                        Image("ArrowLeftIcon")
+                            .resizable()
+                            .frame(width: 32, height: 32)
+                    }
+                    Spacer()
+                }
+                AuthStepHeader(
+                    screenName: "Général",
+                    displayName: "Ajoute ta description"
+                )
+            }
             VStack {
                 TextField(
                     "Écris ici une présentation de ta personne et tes intentions...",
@@ -40,6 +51,6 @@ struct BiographyView: View {
 }
 
 #Preview {
-    BiographyView() { }
+    BiographyView(next: { }, back: { })
         .preferredColorScheme(.dark)
 }

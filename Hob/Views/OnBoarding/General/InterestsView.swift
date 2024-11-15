@@ -11,17 +11,27 @@ struct InterestsView: View {
     @State private var interests: [String] = []
     @State private var selectedInterests: [String] = []
     let next: () -> Void
-
+    let back: () -> Void
     private let maxSelection = 15
 
     var body: some View {
         VStack {
-            AuthStepHeader(
-                screenName: "Général",
-                displayName: "Quelles sont tes centres d'intérêts ? (\(selectedInterests.count)/\(maxSelection))",
-                subtitle: "Sélectionnez jusqu'à \(maxSelection) intérêts"
-            )
-            .padding()
+            VStack(spacing: 12) {
+                HStack {
+                    Button(action: back) {
+                        Image("ArrowLeftIcon")
+                            .resizable()
+                            .frame(width: 32, height: 32)
+                    }
+                    Spacer()
+                }
+                AuthStepHeader(
+                    screenName: "Général",
+                    displayName: "Quelles sont tes centres d'intérêts ? (\(selectedInterests.count)/\(maxSelection))",
+                    subtitle: "Sélectionnez jusqu'à \(maxSelection) intérêts"
+                )
+                .padding()
+            }
 
             ScrollView {
                 WrappingHStack(interests, id: \.self, lineSpacing: 12) { interest in

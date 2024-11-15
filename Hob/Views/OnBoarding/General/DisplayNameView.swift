@@ -10,13 +10,24 @@ import SwiftUI
 struct DisplayNameView: View {
     @State var name: String = ""
     let next: () -> Void
+    let back: () -> Void
 
     var body: some View {
         VStack(spacing: 48) {
-            AuthStepHeader(
-                screenName: "Général",
-                displayName: "Indique ton prénom ou pseudo"
-            )
+            VStack(spacing: 12) {
+                HStack {
+                    Button(action: back) {
+                        Image("ArrowLeftIcon")
+                            .resizable()
+                            .frame(width: 32, height: 32)
+                    }
+                    Spacer()
+                }
+                AuthStepHeader(
+                    screenName: "Général",
+                    displayName: "Indique ton prénom ou pseudo"
+                )
+            }
             HobTextField(hint: "Prénom ou pseudo", text: $name)
 
             HobButton(text: "Suivant", width: .infinity) {
@@ -29,6 +40,6 @@ struct DisplayNameView: View {
 }
 
 #Preview {
-    DisplayNameView() { }
+    DisplayNameView(next: { }, back: { })
         .preferredColorScheme(.dark)
 }

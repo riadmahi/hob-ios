@@ -16,59 +16,74 @@ enum GeneralStep: Int, CaseIterable {
     case biography
 }
 
+enum NavigationDirection {
+    case forward
+    case backward
+}
+
 struct GeneralView: View {
     @State private var currentStep: GeneralStep = .birthdate
+    @State private var navigationDirection: NavigationDirection = .forward
     @Environment(\.dismiss) private var dismiss
     @Namespace private var animationNamespace
     var body: some View {
         ZStack {
             switch currentStep {
             case .birthdate:
-                BirthDateView {
-                    goToNextStep()
-                }
-                .transition(.asymmetric(insertion: .move(edge: .trailing), removal: .move(edge: .leading)))
+                BirthDateView(next: { goToNextStep() }, back: { withAnimation { dismiss() } })
+                    .transition(currentTransition)
                 
             case .gender:
-                GenderView {
-                    goToNextStep()
-                }
-                .transition(.asymmetric(insertion: .move(edge: .trailing), removal: .move(edge: .leading)))
+                GenderView(next: { goToNextStep() }, back: { goToPreviousStep() })
+                    .transition(currentTransition)
+                
                 
             case .displayName:
-                DisplayNameView {
-                    goToNextStep()
-                }
-                .transition(.asymmetric(insertion: .move(edge: .trailing), removal: .move(edge: .leading)))
-              
+                DisplayNameView(next: { goToNextStep() }, back: { goToPreviousStep() })
+                    .transition(currentTransition)
+                
+                
             case .job:
-                JobView {
-                    goToNextStep()
-                }
-                .transition(.asymmetric(insertion: .move(edge: .trailing), removal: .move(edge: .leading)))
+                JobView(next: { goToNextStep() }, back: { goToPreviousStep() })
+                    .transition(currentTransition)
+                
                 
             case .interests:
-                InterestsView {
-                    goToNextStep()
-                }
-                .transition(.asymmetric(insertion: .move(edge: .trailing), removal: .move(edge: .leading)))
+                InterestsView(next: { goToNextStep() }, back: { goToPreviousStep() })
+                    .transition(currentTransition)
+                
             case .biography:
-                BiographyView {
-                    withAnimation {
-                        dismiss()
-                    }
-                }
-                .transition(.asymmetric(insertion: .move(edge: .trailing), removal: .move(edge: .leading)))
+                BiographyView(next: { withAnimation { dismiss() } }, back: { goToPreviousStep() })
+                    .transition(currentTransition)
             }
         }
         .animation(.easeInOut(duration: 0.5), value: currentStep)
+        .navigationBarBackButtonHidden(true )
     }
     
     private func goToNextStep() {
         withAnimation {
+            navigationDirection = .forward
             if let nextStep = GeneralStep(rawValue: currentStep.rawValue + 1) {
                 currentStep = nextStep
             }
+        }
+    }
+    
+    private func goToPreviousStep() {
+        withAnimation {
+            navigationDirection = .backward
+            if let previousStep = GeneralStep(rawValue: currentStep.rawValue - 1) {
+                currentStep = previousStep
+            }
+        }
+    }
+    private var currentTransition: AnyTransition {
+        switch navigationDirection {
+        case .forward:
+            return .asymmetric(insertion: .move(edge: .trailing), removal: .move(edge: .leading))
+        case .backward:
+            return .asymmetric(insertion: .move(edge: .leading), removal: .move(edge: .trailing))
         }
     }
 }

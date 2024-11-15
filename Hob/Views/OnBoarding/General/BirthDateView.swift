@@ -10,13 +10,24 @@ import SwiftUI
 struct BirthDateView: View {
     @State private var birthDate = Date.now
     let next: () -> Void
+    let back: () -> Void
 
     var body: some View {
         VStack(spacing: 48) {
-            AuthStepHeader(
-                screenName: "Général",
-                displayName: "Indique ta date de naissance"
-            )
+            VStack(spacing: 12) {
+                HStack {
+                    Button(action: back) {
+                        Image("ArrowLeftIcon")
+                            .resizable()
+                            .frame(width: 32, height: 32)
+                    }
+                    Spacer()
+                }
+                AuthStepHeader(
+                    screenName: "Général",
+                    displayName: "Indique ta date de naissance"
+                )
+            }
             DatePicker(selection: $birthDate, in: ...Date.now, displayedComponents: .date) {
                 EmptyView()
             }
@@ -34,7 +45,7 @@ struct BirthDateView: View {
 }
 
 #Preview {
-    BirthDateView() { }
+    BirthDateView(next: { }, back: { })
         .preferredColorScheme(.dark)
 }
 
