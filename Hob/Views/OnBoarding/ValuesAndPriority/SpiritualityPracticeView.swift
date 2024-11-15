@@ -11,21 +11,32 @@ struct SpiritualityPracticeView: View {
     @State var isWoman: Bool? = nil
     var practiceList = ["Je suis en chemin", "Pratiquant(e) modéré(e)", "Pratiquant(e) engagé(e)", "Très pratiquant(e)"]
     @State private var selectedPractice: String? = nil
-    let onNext: () -> Void
+    let next: () -> Void
+    let back: () -> Void
 
     var body: some View {
         VStack(spacing: 48) {
-            AuthStepHeader(
-                screenName: "Valeurs et priorités",
-                displayName: "Quelle est votre pratique religieuse ?"
-            )
+            VStack(spacing: 12) {
+                HStack {
+                    Button(action: back) {
+                        Image("ArrowLeftIcon")
+                            .resizable()
+                            .frame(width: 32, height: 32)
+                    }
+                    Spacer()
+                }
+                AuthStepHeader(
+                    screenName: "Valeurs et priorités",
+                    displayName: "Quelle est votre pratique religieuse ?"
+                )
+            }
             VStack(spacing: 12){
                 ForEach(practiceList, id: \.self) { practice in
                     RadioCard(
                         label: practice,
                         selected: self.selectedPractice == practice) {
                             selectedPractice = practice
-                            onNext()
+                            next()
                         }
                 }
             }
@@ -36,7 +47,7 @@ struct SpiritualityPracticeView: View {
 }
 
 #Preview {
-    SpiritualityPracticeView() { }
+    SpiritualityPracticeView(next: { }, back: { })
         .preferredColorScheme(.dark)
 }
 

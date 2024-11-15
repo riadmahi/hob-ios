@@ -17,15 +17,26 @@ struct SpiritualityView: View {
         "Judaïsme",
         "Autre"]
     @State private var selectedReligion: String? = nil
-    let onNext: () -> Void
+    let next: () -> Void
+    let back: () -> Void
     
     var body: some View {
         VStack(spacing: 48) {
-            AuthStepHeader(
-                screenName: "Valeurs et priorités",
-                displayName: "Quelle est ta religion ?",
-                subtitle: "En répondant à cette question, vous verrez des profils de personnes de la même religion"
-            )
+            VStack(spacing: 12) {
+                HStack {
+                    Button(action: back) {
+                        Image("ArrowLeftIcon")
+                            .resizable()
+                            .frame(width: 32, height: 32)
+                    }
+                    Spacer()
+                }
+                AuthStepHeader(
+                    screenName: "Valeurs et priorités",
+                    displayName: "Quelle est ta religion ?",
+                    subtitle: "En répondant à cette question, vous verrez des profils de personnes de la même religion"
+                )
+            }
             VStack(spacing: 12){
                 ForEach(religionList, id: \.self) { religion in
                     RadioCard(
@@ -33,7 +44,7 @@ struct SpiritualityView: View {
                         selected: self.selectedReligion == religion
                     ) {
                         selectedReligion = religion
-                        onNext()
+                        next()
                     }
                 }
             }
@@ -46,6 +57,6 @@ struct SpiritualityView: View {
 
 
 #Preview {
-    SpiritualityView() { }
+    SpiritualityView(next: { }, back: { })
         .preferredColorScheme(.dark)
 }

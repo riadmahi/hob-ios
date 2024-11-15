@@ -11,21 +11,32 @@ import SwiftUI
 struct SpiritualityImportanceView: View {
     var importanceList = ["Essentielle", "Importante", "Peu importante", "Pas importante"]
     @State private var selectedImportance: String? = nil
-    let onNext: () -> Void
-    
+    let next: () -> Void
+    let back: () -> Void
+
     var body: some View {
-        VStack(spacing: 48) {
-            AuthStepHeader(
-                screenName: "Valeurs et priorités",
-                displayName: "Quelle importance accordez-vous à la religion dans une relation ?"
-            )
+        VStack(spacing: 12) {
+            HStack {
+                Button(action: back) {
+                    Image("ArrowLeftIcon")
+                        .resizable()
+                        .frame(width: 32, height: 32)
+                }
+                Spacer()
+            }
+            VStack(spacing: 48) {
+                AuthStepHeader(
+                    screenName: "Valeurs et priorités",
+                    displayName: "Quelle importance accordez-vous à la religion dans une relation ?"
+                )
+            }
             VStack(spacing: 12){
                 ForEach(importanceList, id: \.self) { importance in
                     RadioCard(
                         label: importance,
                         selected: self.selectedImportance == importance) {
                             selectedImportance = importance
-                            onNext()
+                            next()
                         }
                 }
             }
@@ -36,7 +47,7 @@ struct SpiritualityImportanceView: View {
 }
 
 #Preview {
-    SpiritualityImportanceView() { }
+    SpiritualityImportanceView(next: { }, back: { })
         .preferredColorScheme(.dark)
 }
 

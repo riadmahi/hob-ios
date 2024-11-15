@@ -37,7 +37,6 @@ struct GeneralView: View {
                 GenderView(next: { goToNextStep() }, back: { goToPreviousStep() })
                     .transition(currentTransition)
                 
-                
             case .displayName:
                 DisplayNameView(next: { goToNextStep() }, back: { goToPreviousStep() })
                     .transition(currentTransition)
@@ -46,8 +45,7 @@ struct GeneralView: View {
             case .job:
                 JobView(next: { goToNextStep() }, back: { goToPreviousStep() })
                     .transition(currentTransition)
-                
-                
+                  
             case .interests:
                 InterestsView(next: { goToNextStep() }, back: { goToPreviousStep() })
                     .transition(currentTransition)
@@ -58,7 +56,7 @@ struct GeneralView: View {
             }
         }
         .animation(.easeInOut(duration: 0.5), value: currentStep)
-        .navigationBarBackButtonHidden(true )
+        .navigationBarBackButtonHidden(true)
     }
     
     private func goToNextStep() {
