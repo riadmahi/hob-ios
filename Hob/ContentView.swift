@@ -19,7 +19,7 @@ struct ContentView: View {
         if viewModel.isAuthenticated {
             //MainView()
             OnBoardingView()
-            //GeneralView()
+            //OriginsView(next: {}, back: {})
         } else {
             WelcomeView(auth: viewModel.auth)
         }

@@ -12,6 +12,7 @@ enum GeneralStep: Int, CaseIterable {
     case gender
     case displayName
     case job
+    case origins
     case interests
     case biography
 }
@@ -41,11 +42,14 @@ struct GeneralView: View {
                 DisplayNameView(next: { goToNextStep() }, back: { goToPreviousStep() })
                     .transition(currentTransition)
                 
-                
             case .job:
                 JobView(next: { goToNextStep() }, back: { goToPreviousStep() })
                     .transition(currentTransition)
-                  
+                
+            case .origins:
+                OriginsView(next: { goToNextStep() }, back: { goToPreviousStep() })
+                    .transition(currentTransition)
+                
             case .interests:
                 InterestsView(next: { goToNextStep() }, back: { goToPreviousStep() })
                     .transition(currentTransition)

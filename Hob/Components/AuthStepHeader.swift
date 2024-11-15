@@ -24,6 +24,7 @@ struct AuthStepHeader: View {
                     .brSonomaFont(.regular, 15)
                     .foregroundColor(Color("PlaceholderColor"))
                     .multilineTextAlignment(.center)
+                    .lineSpacing(1.4)
             }
         }
         .padding(.horizontal, 42)

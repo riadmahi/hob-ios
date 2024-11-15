@@ -63,7 +63,6 @@ struct ValuesView: View {
             if selectedValues.count < 3 {
                 selectedValues.insert(value)
             }
-            // Pas d'alerte, simplement désactiver les autres options
         }
     }
 }
