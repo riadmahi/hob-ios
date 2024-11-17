@@ -9,7 +9,7 @@ import WrappingHStack
 
 struct InterestsView: View {
     @State private var interests: [String] = []
-    @State private var selectedInterests: [String] = []
+    @Binding var selectedInterests: [String]
     let next: () -> Void
     let back: () -> Void
     private let maxSelection = 15

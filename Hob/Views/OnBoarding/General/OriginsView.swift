@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct OriginsView: View {
-    @State private var selectedOrigins: [String] = []
+    @Binding var selectedOrigins: [String]
     @State private var search: String = ""
     @State private var countries = [Country]()
     
@@ -95,6 +95,6 @@ struct OriginsView: View {
 }
 
 #Preview {
-    OriginsView(next: { }, back: { })
+    OriginsView(selectedOrigins: .constant([]),next: { }, back: { })
         .preferredColorScheme(.dark)
 }

@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct GenderView: View {
-    @State var isWoman: Bool? = nil
+    @Binding var gender: Gender?
     let next: () -> Void
     let back: () -> Void
     var body: some View {
@@ -28,12 +28,12 @@ struct GenderView: View {
                 )
             }
             VStack(spacing: 12){
-                RadioCard(label: "Femme", selected: isWoman ?? false) {
-                    isWoman = true
+                RadioCard(label: "Femme", selected: gender == .woman) {
+                    gender = .woman
                     next()
                 }
-                RadioCard(label: "Homme", selected: !(isWoman ?? true)) {
-                    isWoman = false
+                RadioCard(label: "Homme", selected: gender == .man) {
+                    gender = .man
                     next()
                 }
             }
@@ -44,7 +44,6 @@ struct GenderView: View {
 }
 
 #Preview {
-    GenderView(next: { }, back: { })
+    GenderView(gender: .constant(nil), next: { }, back: { })
         .preferredColorScheme(.dark)
 }
-

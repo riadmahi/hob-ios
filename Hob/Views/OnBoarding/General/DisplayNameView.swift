@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct DisplayNameView: View {
-    @State var name: String = ""
+    @Binding var name: String
     let next: () -> Void
     let back: () -> Void
 
@@ -40,6 +40,6 @@ struct DisplayNameView: View {
 }
 
 #Preview {
-    DisplayNameView(next: { }, back: { })
+    DisplayNameView(name: .constant(""), next: { }, back: { })
         .preferredColorScheme(.dark)
 }

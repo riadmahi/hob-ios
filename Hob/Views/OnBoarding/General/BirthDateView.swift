@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct BirthDateView: View {
-    @State private var birthDate = Date.now
+    @Binding var birthDate: Date
     let next: () -> Void
     let back: () -> Void
 
@@ -45,7 +45,7 @@ struct BirthDateView: View {
 }
 
 #Preview {
-    BirthDateView(next: { }, back: { })
+    BirthDateView(birthDate: .constant(Date.now), next: { }, back: { })
         .preferredColorScheme(.dark)
 }
 

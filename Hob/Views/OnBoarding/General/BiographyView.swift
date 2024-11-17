@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct BiographyView: View {
-    @State var biography: String = ""
+    @Binding var biography: String
     let next: () -> Void
     let back: () -> Void
     var body: some View {
@@ -51,6 +51,6 @@ struct BiographyView: View {
 }
 
 #Preview {
-    BiographyView(next: { }, back: { })
+    BiographyView(biography: .constant(""),next: { }, back: { })
         .preferredColorScheme(.dark)
 }

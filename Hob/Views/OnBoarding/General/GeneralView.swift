@@ -25,37 +25,43 @@ enum NavigationDirection {
 struct GeneralView: View {
     @State private var currentStep: GeneralStep = .birthdate
     @State private var navigationDirection: NavigationDirection = .forward
+    @StateObject private var viewModel: ViewModel
     @Environment(\.dismiss) private var dismiss
     @Namespace private var animationNamespace
+    
+    init() {
+        _viewModel = StateObject(wrappedValue: ViewModel())
+    }
+    
     var body: some View {
         ZStack {
             switch currentStep {
             case .birthdate:
-                BirthDateView(next: { goToNextStep() }, back: { withAnimation { dismiss() } })
+                BirthDateView(birthDate: $viewModel.birthDate,next: { goToNextStep() }, back: { withAnimation { dismiss() } })
                     .transition(currentTransition)
                 
             case .gender:
-                GenderView(next: { goToNextStep() }, back: { goToPreviousStep() })
+                GenderView(gender: $viewModel.gender, next: { goToNextStep() }, back: { goToPreviousStep() })
                     .transition(currentTransition)
                 
             case .displayName:
-                DisplayNameView(next: { goToNextStep() }, back: { goToPreviousStep() })
+                DisplayNameView(name: $viewModel.displayName, next: { goToNextStep() }, back: { goToPreviousStep() })
                     .transition(currentTransition)
                 
             case .job:
-                JobView(next: { goToNextStep() }, back: { goToPreviousStep() })
+                JobView(job: $viewModel.job, next: { goToNextStep() }, back: { goToPreviousStep() })
                     .transition(currentTransition)
                 
             case .origins:
-                OriginsView(next: { goToNextStep() }, back: { goToPreviousStep() })
+                OriginsView(selectedOrigins: $viewModel.origins, next: { goToNextStep() }, back: { goToPreviousStep() })
                     .transition(currentTransition)
                 
             case .interests:
-                InterestsView(next: { goToNextStep() }, back: { goToPreviousStep() })
+                InterestsView(selectedInterests: $viewModel.interests,next: { goToNextStep() }, back: { goToPreviousStep() })
                     .transition(currentTransition)
                 
             case .biography:
-                BiographyView(next: { withAnimation { dismiss() } }, back: { goToPreviousStep() })
+                BiographyView(biography: $viewModel.biography, next: { withAnimation { dismiss() } }, back: { goToPreviousStep() })
                     .transition(currentTransition)
             }
         }
@@ -87,5 +93,17 @@ struct GeneralView: View {
         case .backward:
             return .asymmetric(insertion: .move(edge: .leading), removal: .move(edge: .trailing))
         }
+    }
+}
+
+extension GeneralView {
+    class ViewModel: ObservableObject {
+        @Published var birthDate: Date = Date.now
+        @Published var gender: Gender?
+        @Published var displayName: String = ""
+        @Published var interests: [String] = []
+        @Published var origins: [String]  = []
+        @Published var job: String = ""
+        @Published var biography: String = ""
     }
 }

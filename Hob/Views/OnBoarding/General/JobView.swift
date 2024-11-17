@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct JobView: View {
-    @State var job: String = ""
+    @Binding var job: String
     let next: () -> Void
     let back: () -> Void
     var body: some View {
@@ -39,6 +39,6 @@ struct JobView: View {
 }
 
 #Preview {
-    JobView(next: { }, back: { })
+    JobView(job: .constant(""), next: { }, back: { })
         .preferredColorScheme(.dark)
 }
