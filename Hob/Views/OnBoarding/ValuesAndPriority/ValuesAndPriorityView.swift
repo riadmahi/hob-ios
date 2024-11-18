@@ -17,26 +17,32 @@ enum ValuesAndPriorityStep: Int, CaseIterable {
 struct ValuesAndPriorityView: View {
     @State private var currentStep: ValuesAndPriorityStep = .spirituality
     @State private var navigationDirection: NavigationDirection = .forward
+    @StateObject private var viewModel: ViewModel
     @Environment(\.dismiss) private var dismiss
     @Namespace private var animationNamespace
+    
+    
+    init() {
+        _viewModel = StateObject(wrappedValue: ViewModel())
+    }
     
     var body: some View {
         ZStack {
             switch currentStep {
             case .spirituality:
-                SpiritualityView(next: { goToNextStep() }, back: { withAnimation { dismiss() } })
+                SpiritualityView(selectedReligion: $viewModel.selectedReligion,next: { goToNextStep() }, back: { withAnimation { dismiss() } })
                 .transition(currentTransition)
 
             case .spiritualityPractice:
-                SpiritualityPracticeView(next: { goToNextStep() }, back: { goToPreviousStep() })
+                SpiritualityPracticeView(selectedPractice: $viewModel.selectedPractice, next: { goToNextStep() }, back: { goToPreviousStep() })
                 .transition(currentTransition)
 
             case .spiritualityImportance:
-                SpiritualityImportanceView(next: { goToNextStep() }, back: { goToPreviousStep() })
+                SpiritualityImportanceView(selectedImportance: $viewModel.selectedImportance, next: { goToNextStep() }, back: { goToPreviousStep() })
                 .transition(currentTransition)
 
             case .values:
-                ValuesView(next: { withAnimation { dismiss() } }, back: { goToPreviousStep() })
+                ValuesView(selectedValues: $viewModel.selectedValues, next: { withAnimation { dismiss() } }, back: { goToPreviousStep() })
                 .transition(currentTransition)
             }
         }
@@ -69,5 +75,14 @@ struct ValuesAndPriorityView: View {
         case .backward:
             return .asymmetric(insertion: .move(edge: .leading), removal: .move(edge: .trailing))
         }
+    }
+}
+
+extension ValuesAndPriorityView {
+    class ViewModel: ObservableObject {
+        @Published var selectedReligion: String?
+        @Published var selectedPractice: String?
+        @Published var selectedImportance: String?
+        @Published var selectedValues: [String] = []
     }
 }

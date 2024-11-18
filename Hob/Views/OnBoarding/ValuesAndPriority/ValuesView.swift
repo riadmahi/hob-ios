@@ -10,10 +10,10 @@ import SwiftUI
 struct ValuesView: View {
     let values = ["Famille", "Respect", "Honnêteté", "Ambition", "Compassion", "Tradition", "Éducation", "Spiritualité"]
     
-    @State private var selectedValues: Set<String> = []
+    @Binding var selectedValues: [String]
     let next: () -> Void
     let back: () -> Void
-
+    
     var body: some View {
         VStack(spacing: 48) {
             VStack(spacing: 12) {
@@ -49,7 +49,7 @@ struct ValuesView: View {
                 print("Valeurs sélectionnées : \(selectedValues)")
                 next()
             }
-            .disabled(selectedValues.isEmpty) 
+            .disabled(selectedValues.isEmpty)
             
             Spacer()
         }
@@ -58,10 +58,10 @@ struct ValuesView: View {
     
     private func toggleSelection(for value: String) {
         if selectedValues.contains(value) {
-            selectedValues.remove(value)
+            selectedValues.removeAll { $0 == value }
         } else {
             if selectedValues.count < 3 {
-                selectedValues.insert(value)
+                selectedValues.append(value)
             }
         }
     }

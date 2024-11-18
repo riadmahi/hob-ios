@@ -16,7 +16,7 @@ struct SpiritualityView: View {
         "Bouddhisme",
         "Judaïsme",
         "Autre"]
-    @State private var selectedReligion: String? = nil
+    @Binding var selectedReligion: String?
     let next: () -> Void
     let back: () -> Void
     
@@ -57,6 +57,6 @@ struct SpiritualityView: View {
 
 
 #Preview {
-    SpiritualityView(next: { }, back: { })
+    SpiritualityView(selectedReligion: .constant(nil),next: { }, back: { })
         .preferredColorScheme(.dark)
 }

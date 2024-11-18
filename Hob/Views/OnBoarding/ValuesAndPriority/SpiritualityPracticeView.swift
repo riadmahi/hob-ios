@@ -10,7 +10,7 @@ import SwiftUI
 struct SpiritualityPracticeView: View {
     @State var isWoman: Bool? = nil
     var practiceList = ["Je suis en chemin", "Pratiquant(e) modéré(e)", "Pratiquant(e) engagé(e)", "Très pratiquant(e)"]
-    @State private var selectedPractice: String? = nil
+    @Binding var selectedPractice: String?
     let next: () -> Void
     let back: () -> Void
 
@@ -47,7 +47,7 @@ struct SpiritualityPracticeView: View {
 }
 
 #Preview {
-    SpiritualityPracticeView(next: { }, back: { })
+    SpiritualityPracticeView(selectedPractice: .constant(nil) ,next: { }, back: { })
         .preferredColorScheme(.dark)
 }
 

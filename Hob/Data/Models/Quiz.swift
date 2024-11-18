@@ -32,4 +32,5 @@ struct Category: Codable, Identifiable {
     let id: String
     let name: String
     let description: String
+    let view_description: String
 }

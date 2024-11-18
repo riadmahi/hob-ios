@@ -16,69 +16,93 @@ struct ViewProfileView: View {
         ScrollView {
             LazyVStack(spacing: 12) {
                 ZStack(alignment: .bottom) {
-                    Carousel(photos: [
-                        "https://images.unsplash.com/photo-1552162864-987ac51d1177?q=80&w=2980&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-                        "https://images.unsplash.com/photo-1727160930825-97245483a509?w=800&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxmZWF0dXJlZC1waG90b3MtZmVlZHw0fHx8ZW58MHx8fHx8"
-                    ])
+                    Carousel(photos: mockProfile.photos)
                     
                     VStack(spacing: 4) {
                         HStack(spacing: 8) {
-                            Text("Safia")
+                            Text(mockProfile.name)
                                 .brSonomaFont(.bold, 24)
                             Text("22 ans")
                                 .brSonomaFont(.regular, 18)
                         }
                         .frame(maxWidth: .infinity, alignment: .leading)
                         
-                        Text("à 22km, Banquière")
+                        Text("à 22km, \(mockProfile.job)")
                             .brSonomaFont(.regular, 15)
                             .frame(maxWidth: .infinity, alignment: .leading)
                     }
                     .padding(.horizontal, 12)
-                    .padding(.bottom, 24)
+                    .padding(.bottom, 48)
+
                 }
                 .frame(height: 600)
                 .clipShape(RoundedRectangle(cornerRadius: 16))
 
                 SectionCard(title: "Biographie") {
-                    Text("Je suis quelqu’un qui aime les échanges authentiques et sincères")
+                    Text(mockProfile.biography)
                         .brSonomaFont(.semiBold, 16)
                         .multilineTextAlignment(.leading)
                         .frame(maxWidth: .infinity, alignment: .leading)
                         .padding(.horizontal, 0)
                     
-                    WrappingHStack(["Confiant", "Drôle", "Romantique"], id: \.self) { interest in
-                        ProfileTag(tag: interest)
+                    WrappingHStack(mockProfile.origins, id: \.self) { origin in
+                        ProfileTag(tag: origin)
                     }.padding(.top, 6)
                 }
                 
-                SectionCard(title: "Centres d'intérêt (2 en commun)") {
-                    WrappingHStack(["Foot", "Café", "Dance"], id: \.self) { interest in
-                        ProfileTag(tag: interest)
-                    }.padding(.top, 6)
-                }
-                
-                SectionCard(title: "On est dans la même room parceque") {
-                    WrappingHStack(["Maroc", "Darija", "Francais", "Islam", "Veut se marier vite"], id: \.self, lineSpacing: 12) { interest in
-                        ProfileTag(tag: interest)
-                    }.padding(.top, 6)
-                }
-                
-                SectionCard(title: "Envoyer une note") {
-                    VStack {
-                        TextField(
-                            "Écris ici ta note pour Safia",
-                            text: $note,
-                            axis: .vertical
-                        )
-                        .lineLimit(4...)
-                        .font(.brSonomaFont(.semiBold, 20))
-                        .accentColor(Color("AccentColor"))
+                SectionCard(title: "Personnalité") {
+                    Text("‛\(getPersonnalityName(forCategoryId: mockProfile.personality) ?? "")‛")
+                            .brSonomaFont(.semiBold, 16)
+                            .multilineTextAlignment(.leading)
+                            .frame(maxWidth: .infinity, alignment: .leading)
+                            .padding(.horizontal, 0)
+                    HStack(spacing: 12) {
+                        Image(getPersonalityImageName(forCategoryId: mockProfile.personality))
+                            .resizable()
+                            .scaledToFill()
+                            .frame(width: 120, height: 120)
+                            .clipShape(RoundedRectangle(cornerRadius: 12))
+                        Text("\(mockProfile.name) \(getPersonnalityDescription(forCategoryId: mockProfile.personality) ?? "Inconnu")")
+                            .brSonomaFont(.medium, 14)
+                            .multilineTextAlignment(.leading)
+                            .frame(maxWidth: .infinity, alignment: .leading)
+                            .padding(.horizontal, 0)
                         
-                        HStack {
-                            Spacer()
-                            HobIconButton(iconName: "CheckIcon") {
-                                
+                    }
+                }
+                
+                
+                SectionCard(title: "Spiritualité") {
+                    WrappingHStack {
+                        ProfileTag(tag: mockProfile.spirituality)
+                        ProfileTag(tag: mockProfile.spiritualityPractice)
+                        ProfileTag(tag: mockProfile.spiritualityImportance)
+                    }.padding(.top, 6)
+                }
+                
+                SectionCard(title: "Centres d'intérêt") {
+                    WrappingHStack(mockProfile.interests, id: \.self, lineSpacing: 6) { interest in
+                        ProfileTag(tag: interest)
+                    }.padding(.top, 6)
+                }
+                
+                if !spectatorMode {
+                    SectionCard(title: "Envoyer une note") {
+                        VStack {
+                            TextField(
+                                "Écris ici ta note pour Safia",
+                                text: $note,
+                                axis: .vertical
+                            )
+                            .lineLimit(4...)
+                            .font(.brSonomaFont(.semiBold, 20))
+                            .accentColor(Color("AccentColor"))
+                            
+                            HStack {
+                                Spacer()
+                                HobIconButton(iconName: "CheckIcon") {
+                                    
+                                }
                             }
                         }
                     }
@@ -86,6 +110,62 @@ struct ViewProfileView: View {
             }
             .padding(.horizontal, 12)
         }
+    }
+    
+    func getPersonnalityDescription(forCategoryId id: String) -> String? {
+        if let url = Bundle.main.url(forResource: "personalities", withExtension: "json") {
+            do {
+                let data = try Data(contentsOf: url)
+                let quiz = try JSONDecoder().decode(QuizData.self, from: data)
+                return getViewDescription(forCategoryId: id, from: quiz.categories)
+            } catch {
+                print("Erreur de chargement du fichier JSON : \(error)")
+            }
+        }
+        return nil
+    }
+    
+    func getPersonnalityName(forCategoryId id: String) -> String? {
+        if let url = Bundle.main.url(forResource: "personalities", withExtension: "json") {
+            do {
+                let data = try Data(contentsOf: url)
+                let quiz = try JSONDecoder().decode(QuizData.self, from: data)
+                return getPersonnalityName(forCategoryId: id, from: quiz.categories)
+            } catch {
+                print("Erreur de chargement du fichier JSON : \(error)")
+            }
+        }
+        return nil
+    }
+    
+    
+    func getPersonalityImageName(forCategoryId id: String) -> String {
+        switch id {
+        case "SociableInspirant":
+            return "SocialIllustration"
+        case "RéfléchiSpirituel":
+            return "SpirituallyIllustration"
+        case "DynamiqueÉquilibré":
+            return "DynamicIllustration"
+        case "TranquilleBienveillant":
+            return "KindIllustration"
+        default:
+            return "KindIllustration"
+        }
+    }
+    
+    func getViewDescription(forCategoryId id: String, from categories: [Category]) -> String? {
+        if let category = categories.first(where: { $0.id == id }) {
+            return category.view_description
+        }
+        return nil
+    }
+    
+    func getPersonnalityName(forCategoryId id: String, from categories: [Category]) -> String? {
+        if let category = categories.first(where: { $0.id == id }) {
+            return category.name
+        }
+        return nil
     }
 }
 

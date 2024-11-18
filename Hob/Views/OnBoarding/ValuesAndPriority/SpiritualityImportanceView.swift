@@ -10,7 +10,7 @@ import SwiftUI
 
 struct SpiritualityImportanceView: View {
     var importanceList = ["Essentielle", "Importante", "Peu importante", "Pas importante"]
-    @State private var selectedImportance: String? = nil
+    @Binding var selectedImportance: String?
     let next: () -> Void
     let back: () -> Void
 
@@ -47,7 +47,7 @@ struct SpiritualityImportanceView: View {
 }
 
 #Preview {
-    SpiritualityImportanceView(next: { }, back: { })
+    SpiritualityImportanceView(selectedImportance: .constant(nil), next: { }, back: { })
         .preferredColorScheme(.dark)
 }
 

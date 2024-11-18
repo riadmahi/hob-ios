@@ -139,22 +139,27 @@
     {
       "id": "SociableInspirant",
       "name": "Le Sociable Inspirant",
-      "description": "Vous êtes quelqu'un qui aime la compagnie des autres et qui trouve son inspiration dans le partage et l'échange. Vous recherchez un partenaire avec qui vous pouvez partager vos expériences, apprendre et grandir ensemble."
+      "description": "Vous êtes quelqu'un qui aime la compagnie des autres et qui trouve son inspiration dans le partage et l'échange. Vous recherchez un partenaire avec qui vous pouvez partager vos expériences, apprendre et grandir ensemble.",
+      "view_description": "est une personne qui aime la compagnie des autres et trouve son inspiration dans le partage et l'échange. Il/Elle recherche un partenaire avec qui partager des expériences, apprendre et grandir ensemble.",
+
     },
     {
       "id": "RéfléchiSpirituel",
       "name": "Le Réfléchi Spirituel",
-      "description": "Vous êtes une personne introspective, mettant l'accent sur la spiritualité et la réflexion personnelle. Vous cherchez un partenaire qui partage vos valeurs et avec qui vous pouvez approfondir votre foi et votre compréhension du monde."
+      "description": "Vous êtes une personne introspective, mettant l'accent sur la spiritualité et la réflexion personnelle. Vous cherchez un partenaire qui partage vos valeurs et avec qui vous pouvez approfondir votre foi et votre compréhension du monde.",
+      "view_description": "est une personne introspective, mettant l'accent sur la spiritualité et la réflexion personnelle. Il/Elle cherche un partenaire qui partage ses valeurs et avec qui approfondir sa foi et sa compréhension du monde."
     },
     {
       "id": "DynamiqueÉquilibré",
       "name": "Le Dynamique Équilibré",
-      "description": "Vous menez une vie active et équilibrée, appréciant à la fois l'aventure et la stabilité. Vous recherchez un partenaire qui peut suivre votre rythme et qui partage votre désir de profiter pleinement de la vie."
+      "description": "Vous menez une vie active et équilibrée, appréciant à la fois l'aventure et la stabilité. Vous recherchez un partenaire qui peut suivre votre rythme et qui partage votre désir de profiter pleinement de la vie.",
+      "view_description": "est une personne qui mène une vie active et équilibrée, appréciant à la fois l'aventure et la stabilité. Il/Elle recherche un partenaire qui peut suivre son rythme et qui partage son désir de profiter pleinement de la vie."
     },
     {
       "id": "TranquilleBienveillant",
       "name": "Le Tranquille Bienveillant",
-      "description": "Vous êtes calme, réfléchi(e) et attentionné(e). Vous valorisez la paix intérieure et la bienveillance. Vous cherchez un partenaire qui apprécie votre tranquillité et qui partage votre perspective sur la vie et les relations."
+      "description": "Vous êtes calme, réfléchi(e) et attentionné(e). Vous valorisez la paix intérieure et la bienveillance. Vous cherchez un partenaire qui apprécie votre tranquillité et qui partage votre perspective sur la vie et les relations.",
+      "view_description": "est une personne calme, réfléchie et attentionnée, valorisant la paix intérieure et la bienveillance. Il/Elle recherche un partenaire qui apprécie la tranquillité et partage cette perspective sur la vie et les relations."
     }
   ]
 }
