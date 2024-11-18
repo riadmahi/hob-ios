@@ -28,6 +28,7 @@ struct ChatView: View {
     
     var body: some View {
         VStack {
+            ChatTopBar()
             ScrollView {
                     ForEach(messages, id: \.id) { message in
                         HStack {
