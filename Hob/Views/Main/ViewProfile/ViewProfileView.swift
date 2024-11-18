@@ -73,10 +73,10 @@ struct ViewProfileView: View {
                 
                 
                 SectionCard(title: "Spiritualité") {
-                    WrappingHStack {
+                    WrappingHStack(lineSpacing: 6) {
                         ProfileTag(tag: mockProfile.spirituality)
-                        ProfileTag(tag: mockProfile.spiritualityPractice)
-                        ProfileTag(tag: mockProfile.spiritualityImportance)
+                        ProfileTag(tag: "Je suis quelqu'un de \(mockProfile.spiritualityPractice.lowercased())")
+                        ProfileTag(tag: "La spiritualité est \(mockProfile.spiritualityImportance.lowercased()) selon moi")
                     }.padding(.top, 6)
                 }
                 
