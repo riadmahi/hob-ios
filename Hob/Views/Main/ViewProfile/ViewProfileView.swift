@@ -107,8 +107,16 @@ struct ViewProfileView: View {
                         }
                     }
                 }
+                
+                VStack(spacing: 24) {
+                    GhostHobButton(text: "Ne plus voir le profil de \(mockProfile.name)", width: .infinity) { }
+                    ErrorButton(text: "Signaler \(mockProfile.name)", width: .infinity) { }
+                }
+                .padding(.top, 132)
             }
             .padding(.horizontal, 12)
+            
+            
         }
     }
     
