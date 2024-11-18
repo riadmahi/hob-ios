@@ -14,6 +14,8 @@ struct NoteCard: View {
             NoteProfileInfo()
             Text(note)
                 .brSonomaFont(.semiBold, 16)
+                .frame(maxWidth: .infinity, alignment: .leading)
+
             HStack(spacing: 32) {
                 Spacer()
                 GhostHobIconButton(iconName: "CloseIcon") {
@@ -42,16 +44,7 @@ struct NoteProfileInfo: View {
     var body: some View {
         HStack {
             HStack(spacing: 12) {
-                AsyncImage(
-                    url: URL(string: "https://images.unsplash.com/flagged/photo-1595514191830-3e96a518989b?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D")
-                ) { result in
-                    result.image?
-                        .resizable()
-                        .aspectRatio(contentMode: .fill)
-                        .frame(width: 45, height: 45)
-                        .clipShape(Circle())
-                }
-                
+                ProfilePhoto(imageUrl: "https://images.unsplash.com/flagged/photo-1595514191830-3e96a518989b?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D", size: 45)
                 VStack(alignment: .leading) {
                     Text(profileName)
                         .brSonomaFont(.semiBold, 16)
