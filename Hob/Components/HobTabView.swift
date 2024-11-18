@@ -36,8 +36,8 @@ enum HobTab: Int, CaseIterable {
     
     var isLocked: Bool {
         switch self {
-        //case .chat:
-        //    return true
+            //case .chat:
+            //    return true
         default:
             return false
         }
@@ -46,27 +46,51 @@ enum HobTab: Int, CaseIterable {
 
 struct HobTabView: View {
     @Binding var selectedTab: HobTab
-    
+    @State private var isKeyboardVisible: Bool = false
     var body: some View {
         HStack {
-            ForEach(HobTab.allCases.indices, id: \.self) { index in
-                let tab = HobTab.allCases[index]
-                HobTabItem(
-                    tab: tab,
-                    isSelected: selectedTab == tab
-                )
-                .onTapGesture {
-                    if !tab.isLocked {
-                        selectedTab = tab
+            if !isKeyboardVisible {
+                ForEach(HobTab.allCases.indices, id: \.self) { index in
+                    let tab = HobTab.allCases[index]
+                    HobTabItem(
+                        tab: tab,
+                        isSelected: selectedTab == tab
+                    )
+                    .onTapGesture {
+                        if !tab.isLocked {
+                            selectedTab = tab
+                        }
+                    }
+                    if index < HobTab.allCases.count - 1 {
+                        let nextTab = HobTab.allCases[index + 1]
+                        let shouldUseSolidLine = !tab.isLocked && !nextTab.isLocked
+                        SeparatorLine(isSolid: shouldUseSolidLine)
+                            .frame(width: 40)
                     }
                 }
-                if index < HobTab.allCases.count - 1 {
-                    let nextTab = HobTab.allCases[index + 1]
-                    let shouldUseSolidLine = !tab.isLocked && !nextTab.isLocked
-                    SeparatorLine(isSolid: shouldUseSolidLine)
-                        .frame(width: 40)
-                }
             }
+        }
+        .onAppear {
+            // Observe keyboard notifications
+            NotificationCenter.default.addObserver(
+                forName: UIResponder.keyboardWillShowNotification,
+                object: nil,
+                queue: .main
+            ) { _ in
+                isKeyboardVisible = true
+            }
+            
+            NotificationCenter.default.addObserver(
+                forName: UIResponder.keyboardWillHideNotification,
+                object: nil,
+                queue: .main
+            ) { _ in
+                isKeyboardVisible = false
+            }
+        }
+        .onDisappear {
+            // Remove observers when the view disappears
+            NotificationCenter.default.removeObserver(self)
         }
     }
 }
@@ -145,10 +169,10 @@ struct HobTabView_Previews: PreviewProvider {
         PreviewWrapper()
             .preferredColorScheme(.dark)
     }
-
+    
     struct PreviewWrapper: View {
         @State private var selectedTab: HobTab = .explore
-
+        
         var body: some View {
             HobTabView(selectedTab: $selectedTab)
         }

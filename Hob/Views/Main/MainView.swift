@@ -10,12 +10,13 @@ import SwiftUI
 import FirebaseAuth
 
 struct MainView : View {
-    @State private var selectedTab: HobTab = .explore
+    @State private var selectedTab: HobTab = .chat
 
     var body: some View {
         ZStack {
             VStack {
                 MainTopBar()
+                Spacer()
                 switch selectedTab {
                     case .explore:
                         HomeView(auth: Auth.auth())
@@ -25,6 +26,8 @@ struct MainView : View {
                         ChatView()
                 }
             }
+            .frame(maxWidth: .infinity, maxHeight: .infinity)
+
            
             VStack {
                 Spacer()
@@ -33,7 +36,7 @@ struct MainView : View {
             .padding(.bottom, 24)
         }
         .navigationBarBackButtonHidden(true)
-        .edgesIgnoringSafeArea(.bottom)
+        
     }
 }
 
