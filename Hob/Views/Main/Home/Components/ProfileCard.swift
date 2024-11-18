@@ -6,7 +6,6 @@
 //
 
 import SwiftUI
-import WrappingHStack
 
 struct ProfileCard: View {
     @State var showProfile: Bool = false
@@ -31,12 +30,7 @@ struct ProfileCard: View {
                     .lineLimit(2)
                     .truncationMode(.tail)
                     .frame(maxWidth: .infinity, alignment: .leading)
-                
-                WrappingHStack(mockProfile.interests, id: \.self) { interest in
-                    ProfileTag(tag: interest, isSelected: true)
-                }
-                .padding(.top, 12)
-                .padding(.bottom, 24)
+                    .padding(.bottom, 24)
             }
             .padding(.horizontal, 12)
             .padding(.bottom, 24)
