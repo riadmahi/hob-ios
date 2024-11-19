@@ -59,7 +59,7 @@ class HobRepository {
         }
     }
     
-    func getProfilePreferences(result: @escaping (Result<ProfilePreferences, Error>) -> Void) {
+    func getProfilePreferences(result: @escaping (Result<UserPreferences, Error>) -> Void) {
         guard let currentUser = auth.currentUser else {
             result(.failure(NSError(domain: "AuthError", code: 0, userInfo: [NSLocalizedDescriptionKey: "User not authenticated."])))
             return
@@ -71,7 +71,7 @@ class HobRepository {
                 result(.failure(error))
             } else if let document = document, document.exists {
                 do {
-                    let data = try document.data(as: ProfilePreferences.self)
+                    let data = try document.data(as: UserPreferences.self)
                     result(.success(data))
                 } catch {
                     result(.failure(error))

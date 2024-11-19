@@ -10,7 +10,6 @@ import SwiftUI
 import FirebaseAuth
 
 struct MainView : View {
-    @State private var selectedTab: HobTab = .explore
     @StateObject private var viewModel: ViewModel
     
     init(auth: Auth, repository: HobRepository) {
@@ -23,11 +22,11 @@ struct MainView : View {
                 ProgressView()
             } else {
                 VStack {
-                    if selectedTab != .chat, let profile = viewModel.profile {
+                    if viewModel.selectedTab != .chat, let profile = viewModel.profile {
                         MainTopBar(profile: profile)
                     }
                     Spacer()
-                    switch selectedTab {
+                    switch viewModel.selectedTab  {
                     case .explore:
                         HomeView(auth: Auth.auth())
                     case .notes:
@@ -38,10 +37,9 @@ struct MainView : View {
                 }
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
                 
-                
                 VStack {
                     Spacer()
-                    HobTabView(selectedTab: $selectedTab)
+                    HobTabView(selectedTab: $viewModel.selectedTab)
                 }
                 .padding(.bottom, 24)
                 

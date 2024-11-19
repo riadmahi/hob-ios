@@ -14,11 +14,11 @@ enum SignUpStep: String, Codable, CaseIterable {
     case finished
 }
 
-struct ProfilePreferences: Codable {
+struct UserPreferences: Codable {
     var uid: String?
     var blockedUsers: [String]?
     var likedUsers: [String]?
-    var state: LoveState?
+    var state: LoveState? = LoveState.exploring
     var isComplete: Bool?
     var onBoardingStep: SignUpStep?
     var remainingNotes: Int?
