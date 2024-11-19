@@ -7,7 +7,7 @@
 
 import Foundation
 
-enum SignUpStep: String, Codable {
+enum SignUpStep: String, Codable, CaseIterable {
     case general
     case valuesAndPriorities
     case quiz

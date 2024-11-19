@@ -15,9 +15,11 @@ struct OnBoardingView: View {
     @State private var unlockedStep = 2
     
     let repository: HobRepository
-    
+    @StateObject private var viewModel: ViewModel
+
     init(repository: HobRepository) {
         self.repository = repository
+        _viewModel = StateObject(wrappedValue: ViewModel(repository: repository))
     }
     
     var body: some View {
@@ -54,8 +56,7 @@ struct OnBoardingView: View {
                     .opacity(animateSteps ? 1 : 0)
                     .animation(.easeOut(duration: 0.5).delay(1.0), value: animateSteps)
                     .position(x: 300, y: 50)
-                    .opacity(unlockedStep < 1 ? 0.3 : 1)
-
+                    .opacity((viewModel.currentStep == .finished || viewModel.currentStep == .valuesAndPriorities || viewModel.currentStep == .quiz) ? 1 : 0.3)
                     
                     OnBoardingStep(image: "QuizIcon", title: "Quiz de personnalité") {
                         self.navigateToQuiz = true
@@ -64,7 +65,7 @@ struct OnBoardingView: View {
                     .opacity(animateSteps ? 1 : 0)
                     .animation(.easeOut(duration: 0.5).delay(1.5), value: animateSteps)
                     .position(x: 150, y: 50)
-                    .opacity(unlockedStep < 2 ? 0.3 : 1)
+                    .opacity((viewModel.currentStep == .finished || viewModel.currentStep == .quiz) ? 1 : 0.3)
                 }
             }
             
