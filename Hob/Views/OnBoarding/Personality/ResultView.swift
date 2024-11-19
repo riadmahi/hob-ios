@@ -11,7 +11,7 @@ import SwiftUI
 struct PersonalityResultView: View {
     let category: Category
     let onRestart: () -> Void
-    @Environment(\.dismiss) private var dismiss
+    let onSave: () -> Void
     
     var body: some View {
         VStack(spacing: 20) {
@@ -52,7 +52,7 @@ struct PersonalityResultView: View {
             Spacer()
             
             HobButton(text: "Sauvegarder", width: .infinity) {
-                dismiss()
+                onSave()
             }
             
             GhostHobButton(text: "Recommencer le Quiz", width: .infinity) {

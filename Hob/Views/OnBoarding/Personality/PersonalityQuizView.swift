@@ -8,14 +8,22 @@
 import SwiftUI
 
 struct PersonalityQuizView: View {
-    @ObservedObject var viewModel = PersonalityQuizViewModel()
-    
+    @StateObject var viewModel: ViewModel
+    @Environment(\.dismiss) private var dismiss
+
+    init(repository: HobRepository) {
+        _viewModel = StateObject(wrappedValue: ViewModel(repository: repository))
+    }
     var body: some View {
         VStack {
             if let quiz = viewModel.quiz {
                 if viewModel.showResult, let category = viewModel.resultCategory {
                     PersonalityResultView(category: category, onRestart: {
                         viewModel.resetQuiz()
+                    }, onSave: {
+                        viewModel.updateProfile()
+                        viewModel.moveToFinish()
+                        dismiss()
                     })
                     .navigationBarBackButtonHidden(true)
                 } else {
@@ -63,6 +71,6 @@ struct PersonalityQuizView: View {
 }
 
 #Preview {
-    PersonalityQuizView()
+    PersonalityQuizView(repository: HobRepository())
         .preferredColorScheme(.dark)
 }

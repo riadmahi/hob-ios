@@ -71,7 +71,7 @@ struct OnBoardingView: View {
             
             Spacer()
             
-            HobButton(text: "Finaliser", width: .infinity) {
+            HobButton(text: "Finaliser", width: .infinity, disabled: viewModel.currentStep != .finished) {
                 // Action à définir
             }
             .opacity(animateSteps ? 1 : 0)
@@ -89,7 +89,7 @@ struct OnBoardingView: View {
             GeneralView(repository: repository)
         }
         .navigationDestination(isPresented: $navigateToQuiz) {
-            PersonalityQuizView()
+            PersonalityQuizView(repository: repository)
         }
         .navigationDestination(isPresented: $navigateToValuesAndPriorites) {
             ValuesAndPriorityView(repository: repository)
