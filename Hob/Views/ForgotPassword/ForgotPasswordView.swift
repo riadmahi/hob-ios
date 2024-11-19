@@ -11,7 +11,7 @@ import SimpleToast
 
 struct ForgotPasswordView: View {
     @StateObject private var viewModel: ViewModel
-    private let toastOptions = SimpleToastOptions(hideAfter: 5)
+    private let toastOptions = SimpleToastOptions(alignment: .bottom, hideAfter: 5)
 
     init(auth: Auth) {
         _viewModel = StateObject(wrappedValue: ViewModel(auth: auth))

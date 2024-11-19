@@ -10,24 +10,24 @@ import Foundation
 struct Profile: Codable {
     var uid: String
     var email: String
-    var name: String
-    var gender: Gender
-    var birthDate: Date
-    var photos: [String]
-    var interests: [String]
-    var origins: [String]
-    var personality: String
-    var geohash: String
-    var job: String
-    var spirituality: String
-    var spiritualityPractice: String
-    var spiritualityImportance: String
-    var values: [String]
-    var biography: String
-    var isVisible: Bool
+    var name: String?
+    var gender: Gender?
+    var birthDate: Date?
+    var photos: [String]?
+    var interests: [String]?
+    var origins: [String]?
+    var personality: String?
+    var geohash: String?
+    var job: String?
+    var spirituality: String?
+    var spiritualityPractice: String?
+    var spiritualityImportance: String?
+    var values: [String]?
+    var biography: String?
+    var isVisible: Bool?
     var premiumUntil: Date?
-    var creationDate: Date
-    var fcmToken: String
+    var creationDate: Date?
+    var fcmToken: String?
 }
 
 let mockProfile = Profile(

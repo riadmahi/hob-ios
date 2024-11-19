@@ -16,8 +16,8 @@ struct SignInView: View {
         _viewModel = StateObject(wrappedValue: ViewModel(auth: auth))
     }
     
-    private let toastOptions = SimpleToastOptions(hideAfter: 5)
-    
+    private let toastOptions = SimpleToastOptions(alignment: .bottom, hideAfter: 5)
+
     var body: some View {
         VStack(spacing: 48) {
             AuthStepHeader(

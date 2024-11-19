@@ -16,18 +16,18 @@ struct ViewProfileView: View {
         ScrollView {
             LazyVStack(spacing: 12) {
                 ZStack(alignment: .bottom) {
-                    Carousel(photos: mockProfile.photos)
+                    Carousel(photos: mockProfile.photos!)
                     
                     VStack(spacing: 4) {
                         HStack(spacing: 8) {
-                            Text(mockProfile.name)
+                            Text(mockProfile.name!)
                                 .brSonomaFont(.bold, 24)
                             Text("22 ans")
                                 .brSonomaFont(.regular, 18)
                         }
                         .frame(maxWidth: .infinity, alignment: .leading)
                         
-                        Text("à 22km, \(mockProfile.job)")
+                        Text("à 22km, \(mockProfile.job!)")
                             .brSonomaFont(.regular, 15)
                             .frame(maxWidth: .infinity, alignment: .leading)
                     }
@@ -39,30 +39,30 @@ struct ViewProfileView: View {
                 .clipShape(RoundedRectangle(cornerRadius: 16))
 
                 SectionCard(title: "Biographie") {
-                    Text(mockProfile.biography)
+                    Text(mockProfile.biography!)
                         .brSonomaFont(.semiBold, 16)
                         .multilineTextAlignment(.leading)
                         .frame(maxWidth: .infinity, alignment: .leading)
                         .padding(.horizontal, 0)
                     
-                    WrappingHStack(mockProfile.origins, id: \.self) { origin in
+                    WrappingHStack(mockProfile.origins!, id: \.self) { origin in
                         ProfileTag(tag: origin)
                     }.padding(.top, 6)
                 }
                 
                 SectionCard(title: "Personnalité") {
-                    Text("‛\(getPersonnalityName(forCategoryId: mockProfile.personality) ?? "")‛")
+                    Text("‛\(getPersonnalityName(forCategoryId: mockProfile.personality!) ?? "")‛")
                             .brSonomaFont(.semiBold, 16)
                             .multilineTextAlignment(.leading)
                             .frame(maxWidth: .infinity, alignment: .leading)
                             .padding(.horizontal, 0)
                     HStack(spacing: 12) {
-                        Image(getPersonalityImageName(forCategoryId: mockProfile.personality))
+                        Image(getPersonalityImageName(forCategoryId: mockProfile.personality!))
                             .resizable()
                             .scaledToFill()
                             .frame(width: 120, height: 120)
                             .clipShape(RoundedRectangle(cornerRadius: 12))
-                        Text("\(mockProfile.name) \(getPersonnalityDescription(forCategoryId: mockProfile.personality) ?? "Inconnu")")
+                        Text("\(mockProfile.name!) \(getPersonnalityDescription(forCategoryId: mockProfile.personality!) ?? "Inconnu")")
                             .brSonomaFont(.medium, 14)
                             .multilineTextAlignment(.leading)
                             .frame(maxWidth: .infinity, alignment: .leading)
@@ -74,14 +74,14 @@ struct ViewProfileView: View {
                 
                 SectionCard(title: "Spiritualité") {
                     WrappingHStack(lineSpacing: 6) {
-                        ProfileTag(tag: mockProfile.spirituality)
-                        ProfileTag(tag: "Je suis quelqu'un de \(mockProfile.spiritualityPractice.lowercased())")
-                        ProfileTag(tag: "La spiritualité est \(mockProfile.spiritualityImportance.lowercased()) selon moi")
+                        ProfileTag(tag: mockProfile.spirituality!)
+                        ProfileTag(tag: "Je suis quelqu'un de \(mockProfile.spiritualityPractice!.lowercased())")
+                        ProfileTag(tag: "La spiritualité est \(mockProfile.spiritualityImportance!.lowercased()) selon moi")
                     }.padding(.top, 6)
                 }
                 
                 SectionCard(title: "Centres d'intérêt") {
-                    WrappingHStack(mockProfile.interests, id: \.self, lineSpacing: 6) { interest in
+                    WrappingHStack(mockProfile.interests!, id: \.self, lineSpacing: 6) { interest in
                         ProfileTag(tag: interest)
                     }.padding(.top, 6)
                 }
@@ -109,8 +109,8 @@ struct ViewProfileView: View {
                 }
                 
                 VStack(spacing: 24) {
-                    GhostHobButton(text: "Ne plus voir le profil de \(mockProfile.name)", width: .infinity) { }
-                    ErrorButton(text: "Signaler \(mockProfile.name)", width: .infinity) { }
+                    GhostHobButton(text: "Ne plus voir le profil de \(mockProfile.name!)", width: .infinity) { }
+                    ErrorButton(text: "Signaler \(mockProfile.name!)", width: .infinity) { }
                 }
                 .padding(.top, 132)
             }

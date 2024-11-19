@@ -87,6 +87,7 @@ struct OnBoardingView: View {
         .navigationDestination(isPresented: $navigateToValuesAndPriorites) {
             ValuesAndPriorityView()
         }
+        .navigationBarBackButtonHidden(true)
     }
 }
 struct DottedCurvedLineView: View {

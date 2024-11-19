@@ -68,7 +68,7 @@ struct WelcomeView: View {
             }
         }
         .navigationDestination(isPresented: $navigateToSignIn) { SignInView(auth: auth) }
-        .navigationDestination(isPresented: $navigateToSignUp) { SignUpView() }
+        .navigationDestination(isPresented: $navigateToSignUp) { SignUpView(auth: auth) }
     }
     
     private var background: some View {
