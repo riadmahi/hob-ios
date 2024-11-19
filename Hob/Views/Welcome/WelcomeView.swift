@@ -12,9 +12,11 @@ struct WelcomeView: View {
     @State private var navigateToSignIn: Bool = false
     @State private var navigateToSignUp: Bool = false
     let auth : Auth
+    let repository : HobRepository
     
-    init (auth: Auth) {
+    init (auth: Auth, repository: HobRepository) {
         self.auth = auth
+        self.repository = repository
     }
     
     var body: some View {
@@ -68,7 +70,7 @@ struct WelcomeView: View {
             }
         }
         .navigationDestination(isPresented: $navigateToSignIn) { SignInView(auth: auth) }
-        .navigationDestination(isPresented: $navigateToSignUp) { SignUpView(auth: auth) }
+        .navigationDestination(isPresented: $navigateToSignUp) { SignUpView(auth: auth, repository: HobRepository()) }
     }
     
     private var background: some View {
@@ -84,6 +86,6 @@ struct WelcomeView: View {
 
 
 #Preview {
-    WelcomeView(auth: Auth.auth())
+    WelcomeView(auth: Auth.auth(), repository: HobRepository())
         .preferredColorScheme(.dark)
 }

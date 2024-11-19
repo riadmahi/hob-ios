@@ -12,17 +12,18 @@ extension SignUpView {
     
     class ViewModel: ObservableObject {
         let auth: Auth
+        let repository: HobRepository
         @Published var email: String = ""
         @Published var password: String = ""
         @Published var isPasswordVisible: Bool = false
-        @Published var isPasswordForgotten: Bool = false
         @Published var errorMessage: String? = nil
         @Published var isLoading = false
         @Published var isAuthenticated = false
         @Published var showErrorToast = false
         
-        init(auth: Auth) {
+        init(auth: Auth, repository: HobRepository) {
             self.auth = auth
+            self.repository = repository
         }
         
         func signUp() {
@@ -40,7 +41,15 @@ extension SignUpView {
                         self?.errorMessage = error.localizedDescription
                         self?.showErrorToast = true
                     } else {
-                        self?.isAuthenticated = true
+                        self?.repository.signUp(email: self?.email ?? "", result: { result in
+                            switch result {
+                            case .success():
+                                self?.isAuthenticated = true
+                            case .failure(let error):
+                                self?.errorMessage = error.localizedDescription
+                                self?.showErrorToast = true
+                            }
+                        })
                     }
                 }
             }

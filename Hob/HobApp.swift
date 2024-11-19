@@ -22,9 +22,10 @@ struct HobApp: App {
     @UIApplicationDelegateAdaptor(AppDelegate.self) var delegate
     var body: some Scene {
         let auth = Auth.auth()
+        let repository = HobRepository()
         WindowGroup {
             NavigationStack {
-                ContentView(auth: auth)
+                ContentView(auth: auth, repository: repository)
             }
             .preferredColorScheme(.dark)
         }

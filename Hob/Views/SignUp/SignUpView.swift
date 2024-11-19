@@ -12,8 +12,8 @@ import SimpleToast
 struct SignUpView: View {
     @StateObject private var viewModel: ViewModel
     
-    init(auth: Auth) {
-        _viewModel = StateObject(wrappedValue: ViewModel(auth: auth))
+    init(auth: Auth, repository: HobRepository) {
+        _viewModel = StateObject(wrappedValue: ViewModel(auth: auth, repository: repository))
     }
     
     private let toastOptions = SimpleToastOptions(alignment: .bottom, hideAfter: 5)
@@ -59,9 +59,6 @@ struct SignUpView: View {
         }
         .padding(.top, 48)
         .padding(.horizontal, 10)
-        .navigationDestination(isPresented: $viewModel.isPasswordForgotten) {
-            ForgotPasswordView(auth: viewModel.auth)
-        }
         .navigationDestination(isPresented: $viewModel.isAuthenticated) {
             OnBoardingView()
         }
@@ -69,5 +66,5 @@ struct SignUpView: View {
 }
 
 #Preview {
-    SignUpView(auth: Auth.auth())
+    SignUpView(auth: Auth.auth(), repository: HobRepository())
 }

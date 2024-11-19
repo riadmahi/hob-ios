@@ -11,8 +11,8 @@ import FirebaseAuth
 struct ContentView: View {
     @StateObject private var viewModel: ViewModel
     
-    init(auth: Auth) {
-        _viewModel = StateObject(wrappedValue: ViewModel(auth: auth))
+    init(auth: Auth, repository: HobRepository) {
+        _viewModel = StateObject(wrappedValue: ViewModel(auth: auth, repository: repository))
     }
     
     var body: some View {
@@ -21,7 +21,7 @@ struct ContentView: View {
             //OnBoardingView()
             //ViewProfileView()
         } else {
-            WelcomeView(auth: viewModel.auth)
+            WelcomeView(auth: viewModel.auth, repository: viewModel.repository)
         }
     }
 }
@@ -30,9 +30,11 @@ extension ContentView {
     class ViewModel: ObservableObject {
         @Published var isAuthenticated = false
         let auth: Auth
+        let repository: HobRepository
         
-        init(auth: Auth) {
+        init(auth: Auth, repository: HobRepository) {
             self.auth = auth
+            self.repository = repository
             self.checkIfUserIsAuthenticated()
         }
         
@@ -43,6 +45,6 @@ extension ContentView {
 }
 
 #Preview {
-    ContentView(auth: Auth.auth())
+    ContentView(auth: Auth.auth(), repository: HobRepository())
         .preferredColorScheme(.dark)
 }
