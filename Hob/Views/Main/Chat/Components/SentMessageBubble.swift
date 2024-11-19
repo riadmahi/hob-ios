@@ -12,7 +12,7 @@ struct SentMessageBubble: View {
     let deleteAction: () -> Void
     var body: some View {
             VStack(alignment: .trailing) {
-                Text(message.text)
+                Text(message.content)
                     .brSonomaFont(.medium, 15)
                     .padding(.vertical, 2)
                     .foregroundColor(.white)

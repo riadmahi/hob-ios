@@ -7,30 +7,18 @@
 
 import SwiftUI
 
-struct Message {
-    var id: Int
-    var text: String
-    var isSentByUser: Bool
-}
 
 struct ChatView: View {
     @State var text: String = ""
     @State var isKeyboardVisible = false
 
-    let messages: [Message] = [
-        Message(id: 1, text: "Salut, comment ça va ?", isSentByUser: true),
-        Message(id: 2, text: "Ça va bien, merci ! Et toi ?", isSentByUser: false),
-        Message(id: 3, text: "Je vais super bien, merci !", isSentByUser: true),
-        Message(id: 4, text: "Super content de l'entendre !", isSentByUser: false),
-        Message(id: 5, text: "Tu veux sortir ce week-end ?", isSentByUser: true),
-        Message(id: 6, text: "Oui, pourquoi pas !", isSentByUser: false)
-    ]
+    
     
     var body: some View {
         VStack {
             ChatTopBar()
             ScrollView {
-                    ForEach(messages, id: \.id) { message in
+                    /*ForEach(messages, id: \.id) { message in
                         HStack {
                             if message.isSentByUser {
                                 Spacer()
@@ -41,7 +29,8 @@ struct ChatView: View {
                                 Spacer()
                             }
                         }
-                }
+                }                     */
+
 
             }
             ChatTextField(hint: "Écris ton message", text: $text)

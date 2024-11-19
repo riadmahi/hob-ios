@@ -24,13 +24,9 @@ struct Profile: Codable {
     var spiritualityImportance: String
     var values: [String]
     var biography: String
-    var isComplete: Bool
     var isVisible: Bool
     var premiumUntil: Date?
     var creationDate: Date
-    var remainingNotes: Int
-    var lastNoteSendAt: Date?
-    var state: LoveState
     var fcmToken: String
 }
 
@@ -54,13 +50,9 @@ let mockProfile = Profile(
     spiritualityImportance: "Essentielle",
     values: ["Famille", "Respect", "Honnêteté"],
     biography: "Je suis une personne passionnée par la vie et les nouvelles expériences. J'aime rencontrer de nouvelles personnes, partager des moments de complicité et construire des liens sincères. Toujours curieuse, j'adore explorer de nouvelles cultures, voyager et découvrir de nouveaux horizons. Je crois en l'importance de la communication, de la bienveillance et du respect dans une relation. Si tu recherches quelqu'un avec qui rire, échanger et grandir ensemble, alors nous pourrions bien nous entendre !",
-    isComplete: true,
     isVisible: true,
     premiumUntil: Date().addingTimeInterval(60*60*24*30), // One month from now
     creationDate: Date(),
-    remainingNotes: 5,
-    lastNoteSendAt: Date().addingTimeInterval(-60*60*6), // 6 hours ago
-    state: .exploring,
     fcmToken: "fcm_token_sample_string"
 )
         

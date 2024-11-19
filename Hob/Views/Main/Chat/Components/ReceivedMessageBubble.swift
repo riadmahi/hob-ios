@@ -11,7 +11,7 @@ struct ReceivedMessageBubble: View {
     let message: Message
     var body: some View {
         VStack(alignment: .leading) {
-            Text(message.text)
+            Text(message.content)
                 .brSonomaFont(.medium, 15)
                 .padding(.vertical, 2)
                 .foregroundColor(.white)
