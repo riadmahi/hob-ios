@@ -40,7 +40,7 @@ struct OnBoardingView: View {
                     .animation(.easeOut(duration: 4), value: animateSteps)
                 
                 
-                VStack(spacing: 0) { // Espacement entre les étapes
+                VStack(spacing: 0) {
                     OnBoardingStep(image: "FirstStepIcon", title: "Général") {
                         self.navigateToGeneral = true
                     }

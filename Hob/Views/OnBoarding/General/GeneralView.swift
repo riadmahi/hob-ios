@@ -84,6 +84,7 @@ struct GeneralView: View {
                 case .biography:
                     BiographyView(biography: $viewModel.biography, next: {
                         viewModel.updateProfile()
+                        viewModel.moveToValuesAndPriorities()
                         withAnimation { dismiss() }
                     }, back: { goToPreviousStep() })
                         .transition(currentTransition)

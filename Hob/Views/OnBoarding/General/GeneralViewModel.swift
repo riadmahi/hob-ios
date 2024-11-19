@@ -75,7 +75,7 @@ extension GeneralView {
             }
             updatedData["birthDate"] = birthDate
             if let gender = self.gender {
-                updatedData["gender"] = gender.rawValue // Assuming Gender is an enum
+                updatedData["gender"] = gender.rawValue
             }
             if !interests.isEmpty {
                 updatedData["interests"] = interests
@@ -101,6 +101,19 @@ extension GeneralView {
                     print("Profile updated successfully.")
                 case .failure(let error):
                     print("Error updating profile: \(error.localizedDescription)")
+                }
+            }
+        }
+        
+        func moveToValuesAndPriorities() {
+            var updatedData: [String: Any] = [:]
+            updatedData["onBoardingStep"] = SignUpStep.valuesAndPriorities.rawValue
+            repository.updateUserPreferences(updatedData: updatedData) { result in
+                switch result {
+                case .success():
+                    print("User preferences updated successfully.")
+                case .failure(let error):
+                    print("Error updating user preferences : \(error.localizedDescription)")
                 }
             }
         }

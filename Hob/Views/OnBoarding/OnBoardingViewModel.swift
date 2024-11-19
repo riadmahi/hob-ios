@@ -15,6 +15,7 @@ extension OnBoardingView {
         
         init(repository: HobRepository) {
             self.repository = repository
+            getCurrentStep()
         }
         
         func getCurrentStep() {

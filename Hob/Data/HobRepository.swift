@@ -66,7 +66,7 @@ class HobRepository {
         }
         let userPrefDocRef = userPreferencesRef.document(currentUser.uid)
         
-        userPrefDocRef.getDocument { document, error in
+        userPrefDocRef.addSnapshotListener { document, error in
             if let error = error {
                 result(.failure(error))
             } else if let document = document, document.exists {
@@ -89,7 +89,7 @@ class HobRepository {
         }
         let profileDocRef = profilesRef.document(currentUser.uid)
         
-        profileDocRef.getDocument { document, error in
+        profileDocRef.addSnapshotListener { document, error in
             if let error = error {
                 result(.failure(error))
             } else if let document = document, document.exists {
@@ -112,6 +112,21 @@ class HobRepository {
         }
         let profileDocRef = profilesRef.document(currentUser.uid)
         profileDocRef.updateData(updatedData) { error in
+            if let error = error {
+                result(.failure(error))
+            } else {
+                result(.success(()))
+            }
+        }
+    }
+    
+    func updateUserPreferences(updatedData: [String: Any], result: @escaping (Result<Void, Error>) -> Void) {
+        guard let currentUser = auth.currentUser else {
+            result(.failure(NSError(domain: "AuthError", code: 0, userInfo: [NSLocalizedDescriptionKey: "User not authenticated."])))
+            return
+        }
+        let userPrefDocRef = userPreferencesRef.document(currentUser.uid)
+        userPrefDocRef.updateData(updatedData) { error in
             if let error = error {
                 result(.failure(error))
             } else {
