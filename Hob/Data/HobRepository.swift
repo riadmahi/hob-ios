@@ -81,4 +81,42 @@ class HobRepository {
             }
         }
     }
+    
+    func getProfile(result: @escaping (Result<Profile, Error>) -> Void) {
+        guard let currentUser = auth.currentUser else {
+            result(.failure(NSError(domain: "AuthError", code: 0, userInfo: [NSLocalizedDescriptionKey: "User not authenticated."])))
+            return
+        }
+        let profileDocRef = profilesRef.document(currentUser.uid)
+        
+        profileDocRef.getDocument { document, error in
+            if let error = error {
+                result(.failure(error))
+            } else if let document = document, document.exists {
+                do {
+                    let data = try document.data(as: Profile.self)
+                    result(.success(data))
+                } catch {
+                    result(.failure(error))
+                }
+            } else {
+                result(.failure(NSError(domain: "FirestoreError", code: 0, userInfo: [NSLocalizedDescriptionKey: "Profile data not found."])))
+            }
+        }
+    }
+    
+    func updateProfile(updatedData: [String: Any], result: @escaping (Result<Void, Error>) -> Void) {
+        guard let currentUser = auth.currentUser else {
+            result(.failure(NSError(domain: "AuthError", code: 0, userInfo: [NSLocalizedDescriptionKey: "User not authenticated."])))
+            return
+        }
+        let profileDocRef = profilesRef.document(currentUser.uid)
+        profileDocRef.updateData(updatedData) { error in
+            if let error = error {
+                result(.failure(error))
+            } else {
+                result(.success(()))
+            }
+        }
+    }
 }

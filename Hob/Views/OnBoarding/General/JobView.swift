@@ -29,7 +29,7 @@ struct JobView: View {
             }
             HobTextField(hint: "Emploi (sans emploi, étudiant, etc.)", text: $job)
 
-            HobButton(text: "Suivant", width: .infinity) {
+            HobButton(text: "Suivant", width: .infinity, disabled: job.count < 2) {
                 next()
             }
             Spacer()

@@ -68,7 +68,7 @@ struct OriginsView: View {
                 
             }
             
-            HobButton(text: "Suivant", width: .infinity) {
+            HobButton(text: "Suivant", width: .infinity, disabled: selectedOrigins.count < 1) {
                 next()
             }
             Spacer()

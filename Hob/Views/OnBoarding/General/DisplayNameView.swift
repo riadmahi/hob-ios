@@ -30,7 +30,7 @@ struct DisplayNameView: View {
             }
             HobTextField(hint: "Prénom ou pseudo", text: $name)
 
-            HobButton(text: "Suivant", width: .infinity) {
+            HobButton(text: "Suivant", width: .infinity, disabled: name.count < 2) {
                 next()
             }
             Spacer()

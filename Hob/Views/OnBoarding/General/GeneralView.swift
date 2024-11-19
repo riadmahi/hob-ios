@@ -35,34 +35,59 @@ struct GeneralView: View {
     
     var body: some View {
         ZStack {
-            switch currentStep {
-            case .birthdate:
-                BirthDateView(birthDate: $viewModel.birthDate,next: { goToNextStep() }, back: { withAnimation { dismiss() } })
-                    .transition(currentTransition)
-                
-            case .gender:
-                GenderView(gender: $viewModel.gender, next: { goToNextStep() }, back: { goToPreviousStep() })
-                    .transition(currentTransition)
-                
-            case .displayName:
-                DisplayNameView(name: $viewModel.displayName, next: { goToNextStep() }, back: { goToPreviousStep() })
-                    .transition(currentTransition)
-                
-            case .job:
-                JobView(job: $viewModel.job, next: { goToNextStep() }, back: { goToPreviousStep() })
-                    .transition(currentTransition)
-                
-            case .origins:
-                OriginsView(selectedOrigins: $viewModel.origins, next: { goToNextStep() }, back: { goToPreviousStep() })
-                    .transition(currentTransition)
-                
-            case .interests:
-                InterestsView(selectedInterests: $viewModel.interests,next: { goToNextStep() }, back: { goToPreviousStep() })
-                    .transition(currentTransition)
-                
-            case .biography:
-                BiographyView(biography: $viewModel.biography, next: { withAnimation { dismiss() } }, back: { goToPreviousStep() })
-                    .transition(currentTransition)
+            if viewModel.isLoading {
+                ProgressView()
+            } else {
+                switch currentStep {
+                case .birthdate:
+                    BirthDateView(birthDate: $viewModel.birthDate,next: {
+                        viewModel.updateProfile()
+                        goToNextStep()
+                    }, back: { withAnimation { dismiss() } })
+                        .transition(currentTransition)
+                    
+                case .gender:
+                    GenderView(gender: $viewModel.gender, next: {
+                        viewModel.updateProfile()
+                        goToNextStep()
+                    }, back: { goToPreviousStep() })
+                        .transition(currentTransition)
+                    
+                case .displayName:
+                    DisplayNameView(name: $viewModel.displayName, next: {
+                        viewModel.updateProfile()
+                        goToNextStep()
+                    }, back: { goToPreviousStep() })
+                        .transition(currentTransition)
+                    
+                case .job:
+                    JobView(job: $viewModel.job, next: {
+                        viewModel.updateProfile()
+                        goToNextStep()
+                    }, back: { goToPreviousStep() })
+                        .transition(currentTransition)
+                    
+                case .origins:
+                    OriginsView(selectedOrigins: $viewModel.origins, next: {
+                        viewModel.updateProfile()
+                        goToNextStep()
+                    }, back: { goToPreviousStep() })
+                        .transition(currentTransition)
+                    
+                case .interests:
+                    InterestsView(selectedInterests: $viewModel.interests,next: {
+                        viewModel.updateProfile()
+                        goToNextStep()
+                    }, back: { goToPreviousStep() })
+                        .transition(currentTransition)
+                    
+                case .biography:
+                    BiographyView(biography: $viewModel.biography, next: {
+                        viewModel.updateProfile()
+                        withAnimation { dismiss() }
+                    }, back: { goToPreviousStep() })
+                        .transition(currentTransition)
+                }
             }
         }
         .animation(.easeInOut(duration: 0.5), value: currentStep)
@@ -92,24 +117,6 @@ struct GeneralView: View {
             return .asymmetric(insertion: .move(edge: .trailing), removal: .move(edge: .leading))
         case .backward:
             return .asymmetric(insertion: .move(edge: .leading), removal: .move(edge: .trailing))
-        }
-    }
-}
-
-extension GeneralView {
-    class ViewModel: ObservableObject {
-        @Published var birthDate: Date = Date.now
-        @Published var gender: Gender?
-        @Published var displayName: String = ""
-        @Published var interests: [String] = []
-        @Published var origins: [String]  = []
-        @Published var job: String = ""
-        @Published var biography: String = ""
-        
-        let repository: HobRepository
-        
-        init(repository: HobRepository) {
-            self.repository = repository
         }
     }
 }

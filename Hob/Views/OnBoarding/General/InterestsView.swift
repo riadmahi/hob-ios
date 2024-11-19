@@ -45,7 +45,7 @@ struct InterestsView: View {
                 .padding()
             }
 
-            HobButton(text: "Suivant", width: .infinity) {
+            HobButton(text: "Suivant", width: .infinity, disabled: selectedInterests.count < 3) {
                 next()
             }
             .padding(.horizontal, 12)

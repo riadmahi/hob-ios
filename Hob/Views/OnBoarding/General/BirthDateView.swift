@@ -35,12 +35,19 @@ struct BirthDateView: View {
             .labelsHidden()
             .aspectRatio(contentMode: .fill)
             
-            HobButton(text: "Suivant", width: .infinity) {
+            HobButton(text: "Suivant", width: .infinity, disabled: calculateAge(from: birthDate) < 18) {
                 next()
             }
             Spacer()
         }
         .padding(.horizontal, 12)
+    }
+    
+    private func calculateAge(from birthDate: Date) -> Int {
+        let calendar = Calendar.current
+        let now = Date()
+        let ageComponents = calendar.dateComponents([.year], from: birthDate, to: now)
+        return ageComponents.year ?? 0
     }
 }
 
