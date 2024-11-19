@@ -24,14 +24,14 @@ class HobRepository {
     }
     
     /**
-      --------------------------------     User Repository     --------------------------------
-    */
+     --------------------------------     User Repository     --------------------------------
+     */
     func signUp(email: String, result: @escaping (Result<Void, Error>) -> Void) {
         guard let currentUser = auth.currentUser else {
             result(.failure(NSError(domain: "AuthError", code: 0, userInfo: [NSLocalizedDescriptionKey: "User not authenticated."])))
             return
         }
-
+        
         let profileData: [String: Any] = [
             "email": email,
             "uid": currentUser.uid
@@ -45,7 +45,7 @@ class HobRepository {
         
         let profileDocRef = profilesRef.document(currentUser.uid)
         let userPrefDocRef = userPreferencesRef.document(currentUser.uid)
-
+        
         let batch = db.batch()
         batch.setData(profileData, forDocument: profileDocRef)
         batch.setData(userPrefData, forDocument: userPrefDocRef)
@@ -55,6 +55,29 @@ class HobRepository {
                 result(.failure(error))
             } else {
                 result(.success(()))
+            }
+        }
+    }
+    
+    func getProfilePreferences(result: @escaping (Result<ProfilePreferences, Error>) -> Void) {
+        guard let currentUser = auth.currentUser else {
+            result(.failure(NSError(domain: "AuthError", code: 0, userInfo: [NSLocalizedDescriptionKey: "User not authenticated."])))
+            return
+        }
+        let userPrefDocRef = userPreferencesRef.document(currentUser.uid)
+        
+        userPrefDocRef.getDocument { document, error in
+            if let error = error {
+                result(.failure(error))
+            } else if let document = document, document.exists {
+                do {
+                    let data = try document.data(as: ProfilePreferences.self)
+                    result(.success(data))
+                } catch {
+                    result(.failure(error))
+                }
+            } else {
+                result(.failure(NSError(domain: "FirestoreError", code: 0, userInfo: [NSLocalizedDescriptionKey: "Profile data not found."])))
             }
         }
     }

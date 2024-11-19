@@ -14,6 +14,12 @@ struct OnBoardingView: View {
     @State private var navigateToQuiz = false
     @State private var unlockedStep = 2
     
+    let repository: HobRepository
+    
+    init(repository: HobRepository) {
+        self.repository = repository
+    }
+    
     var body: some View {
         VStack {
             AuthStepHeader(
@@ -79,7 +85,7 @@ struct OnBoardingView: View {
             }
         }
         .navigationDestination(isPresented: $navigateToGeneral) {
-            GeneralView()
+            GeneralView(repository: repository)
         }
         .navigationDestination(isPresented: $navigateToQuiz) {
             PersonalityQuizView()
@@ -137,6 +143,6 @@ struct OnBoardingStep: View {
 }
 
 #Preview {
-    OnBoardingView()
+    OnBoardingView(repository: HobRepository())
         .preferredColorScheme(.dark)
 }

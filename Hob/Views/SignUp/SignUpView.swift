@@ -60,7 +60,7 @@ struct SignUpView: View {
         .padding(.top, 48)
         .padding(.horizontal, 10)
         .navigationDestination(isPresented: $viewModel.isAuthenticated) {
-            OnBoardingView()
+            OnBoardingView(repository: viewModel.repository)
         }
     }
 }

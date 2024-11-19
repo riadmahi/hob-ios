@@ -29,8 +29,8 @@ struct GeneralView: View {
     @Environment(\.dismiss) private var dismiss
     @Namespace private var animationNamespace
     
-    init() {
-        _viewModel = StateObject(wrappedValue: ViewModel())
+    init(repository: HobRepository) {
+        _viewModel = StateObject(wrappedValue: ViewModel(repository: repository))
     }
     
     var body: some View {
@@ -105,5 +105,11 @@ extension GeneralView {
         @Published var origins: [String]  = []
         @Published var job: String = ""
         @Published var biography: String = ""
+        
+        let repository: HobRepository
+        
+        init(repository: HobRepository) {
+            self.repository = repository
+        }
     }
 }

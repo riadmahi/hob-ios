@@ -15,12 +15,12 @@ enum SignUpStep: String, Codable {
 }
 
 struct ProfilePreferences: Codable {
-    var uid: String
-    var blockedUsers: [String]
-    var likedUsers: [String]
-    var state: LoveState
-    var isComplete: Bool
-    var onBoardingStep: SignUpStep
-    var remainingNotes: Int
-    var lastNoteSendAt: Date
+    var uid: String?
+    var blockedUsers: [String]?
+    var likedUsers: [String]?
+    var state: LoveState?
+    var isComplete: Bool?
+    var onBoardingStep: SignUpStep?
+    var remainingNotes: Int?
+    var lastNoteSendAt: Date?
 }

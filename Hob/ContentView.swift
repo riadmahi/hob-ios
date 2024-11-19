@@ -17,9 +17,11 @@ struct ContentView: View {
     
     var body: some View {
         if viewModel.isAuthenticated {
-            MainView()
-            //OnBoardingView()
-            //ViewProfileView()
+            if(viewModel.onBoardingIsComplete) {
+                MainView()
+            } else {
+                OnBoardingView(repository: viewModel.repository)
+            }
         } else {
             WelcomeView(auth: viewModel.auth, repository: viewModel.repository)
         }
@@ -29,6 +31,7 @@ struct ContentView: View {
 extension ContentView {
     class ViewModel: ObservableObject {
         @Published var isAuthenticated = false
+        @Published var onBoardingIsComplete = false
         let auth: Auth
         let repository: HobRepository
         
@@ -40,6 +43,20 @@ extension ContentView {
         
         func checkIfUserIsAuthenticated() {
             isAuthenticated = auth.currentUser?.uid != nil
+            if(isAuthenticated) {
+                checkIfUserOnBoardingIsComplete()
+            }
+        }
+        
+        func checkIfUserOnBoardingIsComplete() {
+            repository.getProfilePreferences { result in
+                switch result {
+                case .success(let profilePreferences):
+                    self.onBoardingIsComplete = profilePreferences.isComplete ?? false
+                case .failure(let error):
+                    print("Error fetching profile preferences: \(error.localizedDescription)")
+                }
+            }
         }
     }
 }
