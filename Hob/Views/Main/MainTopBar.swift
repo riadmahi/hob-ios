@@ -36,7 +36,7 @@ struct MainTopBar: View {
         .padding(.horizontal, 12)
         .frame(maxWidth: .infinity, maxHeight: 50)
         .sheet(isPresented: $showProfileSheet) {
-            ProfileView()
+            ProfileView(profile: profile)
                 .background(Color(.black))
         }
     }

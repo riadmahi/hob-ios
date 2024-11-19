@@ -40,28 +40,28 @@ struct HobTabView: View {
     @State private var isKeyboardVisible: Bool = false
     var body: some View {
         HStack {
-                    if !isKeyboardVisible {
-                        ForEach(HobTab.allCases.indices, id: \.self) { index in
-                            let tab = HobTab.allCases[index]
-                            HobTabItem(
-                                tab: tab,
-                                isSelected: selectedTab == tab,
-                                isLocked: isTabLocked(for: tab)
-                            )
-                            .onTapGesture {
-                                if !isTabLocked(for: tab) {
-                                    selectedTab = tab
-                                }
-                            }
-                            if index < HobTab.allCases.count - 1 {
-                                let nextTab = HobTab.allCases[index + 1]
-                                let shouldUseSolidLine = !isTabLocked(for: tab) && !isTabLocked(for: nextTab)
-                                SeparatorLine(isSolid: shouldUseSolidLine)
-                                    .frame(width: 40)
-                            }
+            if !isKeyboardVisible {
+                ForEach(HobTab.allCases.indices, id: \.self) { index in
+                    let tab = HobTab.allCases[index]
+                    HobTabItem(
+                        tab: tab,
+                        isSelected: selectedTab == tab,
+                        isLocked: isTabLocked(for: tab)
+                    )
+                    .onTapGesture {
+                        if !isTabLocked(for: tab) {
+                            selectedTab = tab
                         }
                     }
+                    if index < HobTab.allCases.count - 1 {
+                        let nextTab = HobTab.allCases[index + 1]
+                        let shouldUseSolidLine = !isTabLocked(for: tab) && !isTabLocked(for: nextTab)
+                        SeparatorLine(isSolid: shouldUseSolidLine)
+                            .frame(width: 40)
+                    }
                 }
+            }
+        }
         .onAppear {
             // Observe keyboard notifications
             NotificationCenter.default.addObserver(
@@ -89,11 +89,9 @@ struct HobTabView: View {
     private func isTabLocked(for tab: HobTab) -> Bool {
         switch selectedTab {
         case .chat:
-            return tab != .chat  // Lock all tabs except chat
-        case .explore:
-            return tab == .chat  // Lock only the chat tab
+            return tab != .chat
         default:
-            return false // No tabs are locked for other cases
+            return tab == .chat
         }
     }
     
@@ -104,7 +102,7 @@ struct HobTabItem: View {
     let tab: HobTab
     var isSelected: Bool
     var isLocked: Bool
-
+    
     private var selectedColor: Color {
         isSelected || !isLocked ? .white : Color(hex: 0x6E6B6B)
     }
