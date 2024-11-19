@@ -92,11 +92,12 @@ struct OnBoardingView: View {
             PersonalityQuizView()
         }
         .navigationDestination(isPresented: $navigateToValuesAndPriorites) {
-            ValuesAndPriorityView()
+            ValuesAndPriorityView(repository: repository)
         }
         .navigationBarBackButtonHidden(true)
     }
 }
+
 struct DottedCurvedLineView: View {
     var body: some View {
         Path { path in

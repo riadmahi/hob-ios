@@ -21,29 +21,45 @@ struct ValuesAndPriorityView: View {
     @Environment(\.dismiss) private var dismiss
     @Namespace private var animationNamespace
     
-    
-    init() {
-        _viewModel = StateObject(wrappedValue: ViewModel())
+    init(repository: HobRepository) {
+        _viewModel = StateObject(wrappedValue: ViewModel(repository: repository))
     }
     
     var body: some View {
         ZStack {
-            switch currentStep {
-            case .spirituality:
-                SpiritualityView(selectedReligion: $viewModel.selectedReligion,next: { goToNextStep() }, back: { withAnimation { dismiss() } })
-                .transition(currentTransition)
-
-            case .spiritualityPractice:
-                SpiritualityPracticeView(selectedPractice: $viewModel.selectedPractice, next: { goToNextStep() }, back: { goToPreviousStep() })
-                .transition(currentTransition)
-
-            case .spiritualityImportance:
-                SpiritualityImportanceView(selectedImportance: $viewModel.selectedImportance, next: { goToNextStep() }, back: { goToPreviousStep() })
-                .transition(currentTransition)
-
-            case .values:
-                ValuesView(selectedValues: $viewModel.selectedValues, next: { withAnimation { dismiss() } }, back: { goToPreviousStep() })
-                .transition(currentTransition)
+            if viewModel.isLoading {
+                ProgressView()
+            } else {
+                switch currentStep {
+                case .spirituality:
+                    SpiritualityView(selectedReligion: $viewModel.selectedReligion,next: {
+                        viewModel.updateProfile()
+                        goToNextStep()
+                    }, back: { withAnimation { dismiss() } })
+                    .transition(currentTransition)
+                    
+                case .spiritualityPractice:
+                    SpiritualityPracticeView(selectedPractice: $viewModel.selectedPractice, next: {
+                        viewModel.updateProfile()
+                        goToNextStep()
+                    }, back: { goToPreviousStep() })
+                    .transition(currentTransition)
+                    
+                case .spiritualityImportance:
+                    SpiritualityImportanceView(selectedImportance: $viewModel.selectedImportance, next: {
+                        viewModel.updateProfile()
+                        goToNextStep()
+                    }, back: { goToPreviousStep() })
+                    .transition(currentTransition)
+                    
+                case .values:
+                    ValuesView(selectedValues: $viewModel.selectedValues, next: {
+                        viewModel.updateProfile()
+                        viewModel.moveToQuiz()
+                        withAnimation { dismiss() }
+                    }, back: { goToPreviousStep() })
+                    .transition(currentTransition)
+                }
             }
         }
         .animation(.easeInOut(duration: 0.5), value: currentStep)
@@ -78,11 +94,3 @@ struct ValuesAndPriorityView: View {
     }
 }
 
-extension ValuesAndPriorityView {
-    class ViewModel: ObservableObject {
-        @Published var selectedReligion: String?
-        @Published var selectedPractice: String?
-        @Published var selectedImportance: String?
-        @Published var selectedValues: [String] = []
-    }
-}
