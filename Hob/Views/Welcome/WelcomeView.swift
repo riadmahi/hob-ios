@@ -69,8 +69,8 @@ struct WelcomeView: View {
                 }
             }
         }
-        .navigationDestination(isPresented: $navigateToSignIn) { SignInView(auth: auth) }
-        .navigationDestination(isPresented: $navigateToSignUp) { SignUpView(auth: auth, repository: HobRepository()) }
+        .navigationDestination(isPresented: $navigateToSignIn) { SignInView(auth: auth, repository: repository) }
+        .navigationDestination(isPresented: $navigateToSignUp) { SignUpView(auth: auth, repository: repository) }
     }
     
     private var background: some View {

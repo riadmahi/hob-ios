@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import FirebaseAuth
 
 struct OnBoardingView: View {
     @State private var animateSteps = false
@@ -15,10 +16,12 @@ struct OnBoardingView: View {
     @State private var unlockedStep = 2
     
     let repository: HobRepository
+    let auth: Auth
     @StateObject private var viewModel: ViewModel
 
-    init(repository: HobRepository) {
+    init(auth: Auth, repository: HobRepository) {
         self.repository = repository
+        self.auth = auth
         _viewModel = StateObject(wrappedValue: ViewModel(repository: repository))
     }
     
@@ -72,7 +75,7 @@ struct OnBoardingView: View {
             Spacer()
             
             HobButton(text: "Finaliser", width: .infinity, disabled: viewModel.currentStep != .finished) {
-                // Action à définir
+                viewModel.finish()
             }
             .opacity(animateSteps ? 1 : 0)
             .animation(.easeIn(duration: 1).delay(2.0), value: animateSteps)
@@ -93,6 +96,9 @@ struct OnBoardingView: View {
         }
         .navigationDestination(isPresented: $navigateToValuesAndPriorites) {
             ValuesAndPriorityView(repository: repository)
+        }
+        .navigationDestination(isPresented: $viewModel.isComplete) {
+            MainView(auth: auth,repository: repository)
         }
         .navigationBarBackButtonHidden(true)
     }
@@ -145,6 +151,6 @@ struct OnBoardingStep: View {
 }
 
 #Preview {
-    OnBoardingView(repository: HobRepository())
+    OnBoardingView(auth: Auth.auth(), repository: HobRepository())
         .preferredColorScheme(.dark)
 }

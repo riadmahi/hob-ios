@@ -12,6 +12,7 @@ extension OnBoardingView {
         let repository: HobRepository
         
         @Published var currentStep: SignUpStep = .general
+        @Published var isComplete: Bool = false
         
         init(repository: HobRepository) {
             self.repository = repository
@@ -28,5 +29,20 @@ extension OnBoardingView {
                 }
             }
         }
+        
+        func finish() {
+            var updatedData: [String: Any] = [:]
+            updatedData["isComplete"] = true
+            repository.updateUserPreferences(updatedData: updatedData) { result in
+                switch result {
+                case .success():
+                    print("Profile updated successfully.")
+                    self.isComplete = true
+                case .failure(let error):
+                    print("Error updating profile: \(error.localizedDescription)")
+                }
+            }
+        }
+        
     }
 }

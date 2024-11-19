@@ -18,9 +18,9 @@ struct ContentView: View {
     var body: some View {
         if viewModel.isAuthenticated {
             if(viewModel.onBoardingIsComplete) {
-                MainView()
+                MainView(auth: viewModel.auth,repository: viewModel.repository)
             } else {
-                OnBoardingView(repository: viewModel.repository)
+                OnBoardingView(auth: viewModel.auth,repository: viewModel.repository)
             }
         } else {
             WelcomeView(auth: viewModel.auth, repository: viewModel.repository)

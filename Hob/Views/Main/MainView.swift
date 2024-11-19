@@ -11,7 +11,12 @@ import FirebaseAuth
 
 struct MainView : View {
     @State private var selectedTab: HobTab = .chat
-
+    @StateObject private var viewModel: ViewModel
+    
+    init(auth: Auth, repository: HobRepository) {
+        _viewModel = StateObject(wrappedValue: ViewModel(repository: repository))
+    }
+    
     var body: some View {
         ZStack {
             VStack {
@@ -38,7 +43,6 @@ struct MainView : View {
             .padding(.bottom, 24)
         }
         .navigationBarBackButtonHidden(true)
-        
     }
 }
 

@@ -11,8 +11,10 @@ import SimpleToast
 
 struct SignInView: View {
     @StateObject private var viewModel: ViewModel
+    let repository: HobRepository
     
-    init(auth: Auth) {
+    init(auth: Auth, repository: HobRepository) {
+        self.repository = repository
         _viewModel = StateObject(wrappedValue: ViewModel(auth: auth))
     }
     
@@ -66,12 +68,12 @@ struct SignInView: View {
             ForgotPasswordView(auth: viewModel.auth)
         }
         .navigationDestination(isPresented: $viewModel.isAuthenticated) {
-            MainView()
+            MainView(auth: viewModel.auth, repository: repository)
         }
     }
 }
 
 #Preview {
-    SignInView(auth: Auth.auth())
+    SignInView(auth: Auth.auth(), repository: HobRepository())
         .preferredColorScheme(.dark)
 }
