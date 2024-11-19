@@ -21,22 +21,19 @@ struct ChatTopBar: View {
             Menu {
                 Button(action: {
                     print("Voir le profil de Safia")
-                    // Action pour voir le profil de Safia
                 }) {
                     Text("Voir le profil de Safia")
                 }
                 Button(action: {
                     print("Voir mon profil")
-                    // Action pour voir ton profil
                 }) {
                     Text("Voir mon profil")
                 }
                 Button(action: {
                     print("Dématcher")
-                    // Action pour démarrer le processus de démarrage
                 }) {
                     Text("Dématcher")
-                        .foregroundColor(.red) // Mettre en rouge si nécessaire
+                        .foregroundColor(.red)
                 }
             } label: {
                 Image("HDotsIcon")

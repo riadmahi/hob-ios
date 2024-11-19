@@ -15,7 +15,9 @@ struct MainView : View {
     var body: some View {
         ZStack {
             VStack {
-                MainTopBar()
+                if selectedTab != .chat {
+                    MainTopBar()
+                }
                 Spacer()
                 switch selectedTab {
                     case .explore:

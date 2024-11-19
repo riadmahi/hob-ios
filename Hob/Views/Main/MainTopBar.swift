@@ -8,12 +8,19 @@
 import SwiftUI
 
 struct MainTopBar: View {
+    @State private var showProfileSheet = false
+
     var body: some View {
         HStack(alignment: .center) {
-            HStack(spacing: 8) {
-                ProfilePhoto(imageUrl: "https://images.unsplash.com/flagged/photo-1595514191830-3e96a518989b?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D", size: 45)
-                Text("Riad")
-                    .brSonomaFont(.semiBold, 15)
+            Button {
+                showProfileSheet.toggle()
+            } label: {
+                HStack(spacing: 8) {
+                    ProfilePhoto(imageUrl: "https://images.unsplash.com/flagged/photo-1595514191830-3e96a518989b?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D", size: 45)
+                    Text("Riad")
+                        .brSonomaFont(.semiBold, 15)
+                        .foregroundColor(.white)
+                }
             }
             Spacer()
             
@@ -27,6 +34,10 @@ struct MainTopBar: View {
         }
         .padding(.horizontal, 12)
         .frame(maxWidth: .infinity, maxHeight: 50)
+        .sheet(isPresented: $showProfileSheet) {
+            ProfileView()
+                .background(Color(.black))
+        }
     }
 }
 

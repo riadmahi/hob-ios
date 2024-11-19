@@ -8,8 +8,22 @@
 import SwiftUI
 
 struct ProfileView: View {
+    @Environment(\.dismiss) private var dismiss
     var body: some View {
         VStack {
+            HStack {
+                Spacer()
+                Button {
+                    dismiss()
+                } label: {
+                    Image("CloseIcon")
+                        .resizable()
+                        .frame(width: 28, height:  28)
+                        .foregroundColor(Color("PlaceholderColor"))
+                }
+            }
+            .padding(.top, 12)
+
             ProfilePhotoSection()
             PremiumUntilCard()
                 .padding(.horizontal, 32)
@@ -28,6 +42,7 @@ struct ProfileView: View {
             .padding(.bottom, 32)
         }
         .padding(.horizontal, 12)
+        
     }
 }
 
@@ -59,16 +74,7 @@ struct ProfileNavigationSection: View {
 struct ProfilePhotoSection: View {
     var body: some View {
         VStack {
-            AsyncImage(
-                url: URL(string: "https://images.unsplash.com/flagged/photo-1595514191830-3e96a518989b?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D")
-            ) { result in
-                result.image?
-                    .resizable()
-                    .aspectRatio(contentMode: .fill)
-                    .frame(width: 90, height: 90)
-                    .clipShape(Circle())
-            }
-            
+            ProfilePhoto(imageUrl: "https://images.unsplash.com/flagged/photo-1595514191830-3e96a518989b?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D", size: 90)
             Text("Riad")
                 .brSonomaFont(.semiBold, 18)
         }
