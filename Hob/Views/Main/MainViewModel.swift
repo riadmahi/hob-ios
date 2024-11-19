@@ -18,6 +18,7 @@ extension MainView {
         
         init(repository: HobRepository) {
             self.repository = repository
+            fetchProfile()
         }
         
         func fetchProfile() {

@@ -62,7 +62,7 @@ extension GeneralView {
         }
         
         func updateProfile() {
-            guard let profile = self.profile else {
+            guard self.profile != nil else {
                 print("No profile data available to update.")
                 return
             }

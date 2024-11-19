@@ -10,7 +10,7 @@ import SwiftUI
 import FirebaseAuth
 
 struct MainView : View {
-    @State private var selectedTab: HobTab = .chat
+    @State private var selectedTab: HobTab = .explore
     @StateObject private var viewModel: ViewModel
     
     init(auth: Auth, repository: HobRepository) {
@@ -19,28 +19,33 @@ struct MainView : View {
     
     var body: some View {
         ZStack {
-            VStack {
-                if selectedTab != .chat {
-                    MainTopBar()
-                }
-                Spacer()
-                switch selectedTab {
+            if viewModel.isLoading {
+                ProgressView()
+            } else {
+                VStack {
+                    if selectedTab != .chat, let profile = viewModel.profile {
+                        MainTopBar(profile: profile)
+                    }
+                    Spacer()
+                    switch selectedTab {
                     case .explore:
                         HomeView(auth: Auth.auth())
                     case .notes:
                         NotesView()
                     case .chat:
                         ChatView()
+                    }
                 }
+                .frame(maxWidth: .infinity, maxHeight: .infinity)
+                
+                
+                VStack {
+                    Spacer()
+                    HobTabView(selectedTab: $selectedTab)
+                }
+                .padding(.bottom, 24)
+                
             }
-            .frame(maxWidth: .infinity, maxHeight: .infinity)
-
-           
-            VStack {
-                Spacer()
-                HobTabView(selectedTab: $selectedTab)
-            }
-            .padding(.bottom, 24)
         }
         .navigationBarBackButtonHidden(true)
     }

@@ -46,6 +46,3 @@ struct ChatTopBar: View {
     }
 }
 
-#Preview {
-    MainTopBar()
-}
